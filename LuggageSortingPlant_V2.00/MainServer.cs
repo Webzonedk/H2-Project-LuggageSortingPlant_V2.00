@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Bogus;
 
-namespace luggageSortingPlant
+namespace LuggageSortingPlant_V2._00
 {
     class MainServer
     {

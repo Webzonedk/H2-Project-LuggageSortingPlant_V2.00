@@ -23,6 +23,8 @@ namespace LuggageSortingPlant_V2._00
         public MainWindow()
         {
             InitializeComponent();
+            MainServer manager = new MainServer();
+            //  MainServer manager = new MainServer();
         }
     }
 }

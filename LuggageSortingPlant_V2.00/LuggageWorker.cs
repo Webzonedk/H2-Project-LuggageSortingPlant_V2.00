@@ -8,7 +8,7 @@ using Bogus;
 //-----------------------------------------------------------------------------------------
 //This class is made to create luggage. It is a thread worker
 //-----------------------------------------------------------------------------------------
-namespace luggageSortingPlant
+namespace LuggageSortingPlant_V2._00
 {
     class LuggageWorker
     {

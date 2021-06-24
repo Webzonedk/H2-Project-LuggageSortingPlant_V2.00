@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace luggageSortingPlant
+namespace LuggageSortingPlant_V2._00
 {
     class FlightPlanQueueWorker
     {

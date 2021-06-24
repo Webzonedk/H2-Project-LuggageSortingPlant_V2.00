@@ -7,7 +7,7 @@ using System.Threading;
 //------------------------------------------------------------------------------------------------------------------
 //This class is ment to reordering the luggage array to work as a queue
 //------------------------------------------------------------------------------------------------------------------
-namespace luggageSortingPlant
+namespace LuggageSortingPlant_V2._00
 {
     class LuggageQueueWorker
     {

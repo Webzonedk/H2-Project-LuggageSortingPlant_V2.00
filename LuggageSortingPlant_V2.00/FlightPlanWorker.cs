@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace luggageSortingPlant
+namespace LuggageSortingPlant_V2._00
 {
     class FlightPlanWorker
     {
@@ -61,7 +61,8 @@ namespace luggageSortingPlant
                         flightPlan.GateNumber = MainServer.random.Next(0, MainServer.amountOfGates);
                         if (MainServer.flightPlans[MainServer.maxPendingFlights - 2] == null)
                         {
-                            flightPlan.DepartureTime = Program.manager.CurrentTime.AddSeconds(MainServer.random.Next(MainServer.flightPlanMinInterval, MainServer.flightPlanMaxInterval));
+                            flightPlan.DepartureTime = DateTime.Now.AddSeconds(MainServer.random.Next(MainServer.flightPlanMinInterval, MainServer.flightPlanMaxInterval));
+                        
                         }
                         else
                         {
