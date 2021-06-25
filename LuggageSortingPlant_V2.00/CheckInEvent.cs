@@ -8,11 +8,11 @@ namespace LuggageSortingPlant_V2._00
 {
     class CheckInEvent : EventArgs
     {
-        public int Count { get; set; }
+        public CheckIn CheckIn { get; set; }
 
-        public CheckInEvent(int count)
+        public CheckInEvent(CheckIn checkIn)
         {
-            Count = count;
+            CheckIn = checkIn;
         }
     }
 }

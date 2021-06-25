@@ -68,7 +68,6 @@ namespace LuggageSortingPlant_V2._00
 
         //Instantiating Classes
         public static OutPut outPut = new OutPut();//This class is only for printing in console.
-
         #region Fields
         private string name;
         private DateTime currentTime;
@@ -88,28 +87,6 @@ namespace LuggageSortingPlant_V2._00
             set { currentTime = value; }
         }
 
-
-        //public CheckIn[] CheckIns
-        //{
-        //    get { return checkIns; }
-        //    set { checkIns = value; }
-        //}
-
-        //public CheckInBuffer[] CheckInBuffers
-        //{
-        //    get { return checkInBuffers; }
-        //    set { checkInBuffers = value; }
-        //}
-        //public GateBuffer[] GateBuffers
-        //{
-        //    get { return gateBuffers; }
-        //    set { gateBuffers = value; }
-        //}
-        //public Luggage[] Log
-        //{
-        //    get { return log; }
-        //    set { log = value; }
-        //}
         #endregion
 
 
@@ -120,20 +97,6 @@ namespace LuggageSortingPlant_V2._00
 
         }
 
-        public MainServer(string name)
-        {
-            this.name = name;
-        }
-
-        //public Manager(string name, DateTime currentTime,)
-        //{
-        //    this.name = name;
-        //    this.currentTime = currentTime;
-        //    this.checkIns = checkIns;
-        //    this.gates = gates;
-        //    this.gateBuffers = gateBuffers;
-        //    this.log = log;
-        //}
         #endregion
 
 
@@ -143,7 +106,7 @@ namespace LuggageSortingPlant_V2._00
         {
             for (int i = 0; i < amountOfCheckIns; i++)
             {
-                CheckIn checkIn = new CheckIn($"Check in counter {i + 1}", false, i);
+                CheckIn checkIn = new CheckIn(false, i);
                 checkIns[i] = checkIn;
             }
         }

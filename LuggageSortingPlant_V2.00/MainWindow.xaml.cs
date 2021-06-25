@@ -21,7 +21,7 @@ namespace LuggageSortingPlant_V2._00
     /// </summary>
     public partial class MainWindow : Window
     {
-         MainServer manager = new MainServer();
+        MainServer manager = new MainServer();
 
         public MainWindow()
         {
@@ -29,16 +29,25 @@ namespace LuggageSortingPlant_V2._00
             manager = new MainServer();
 
             StartLuggageController();
+            CheckInsOnAndOffColor();
+        }
+        private void Button_Start(object sender, RoutedEventArgs e)
+        {
+            manager.RunSimulation();
+        }
+        private void Button_Stop(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void StartLuggageController()
         {
-        LuggageController luggageController = new LuggageController();
+            LuggageController luggageController = new LuggageController();
             luggageController.countLuggage += OnLuggageCreated;
         }
 
 
-
+        //Eventlistener to receive the current count of luggage in the hall.
         public void OnLuggageCreated(object sender, EventArgs e)//Event Listener
         {
 
@@ -52,13 +61,131 @@ namespace LuggageSortingPlant_V2._00
             }
         }
 
-        private void Button_Start(object sender, RoutedEventArgs e)
+
+        //Controlling the colors on the checkins depending if they are open or closed
+        private void CheckInsOnAndOffColor()
         {
-            manager.RunSimulation();
+            for (int i = 0; i < MainServer.amountOfCheckIns; i++)
+            {
+            CheckInController checkInController = new CheckInController(i);
+            checkInController.OpenCloseCheckIns += ChangeColor;
+            }
         }
-        private void Button_Stop(object sender, RoutedEventArgs e)
+
+        //Event Listener method
+        public void ChangeColor(object sender, EventArgs e)//Event Listener
         {
-           
+
+            if (e is CheckInEvent)
+            {
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    switch (((CheckInEvent)e).CheckIn.CheckInNumber)
+                    {
+                        case 0:
+                            if (((CheckInEvent)e).CheckIn.Open)
+                            {
+                                lbl_checkIn0.Background = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+                                lbl_checkIn0.Background = new SolidColorBrush(Colors.Red);
+                            }
+                            break;
+                        case 1:
+                            if (((CheckInEvent)e).CheckIn.Open)
+                            {
+                                lbl_checkIn1.Background = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+                                lbl_checkIn1.Background = new SolidColorBrush(Colors.Red);
+                            }
+                            break;
+                        case 2:
+                            if (((CheckInEvent)e).CheckIn.Open)
+                            {
+                                lbl_checkIn2.Background = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+                                lbl_checkIn2.Background = new SolidColorBrush(Colors.Red);
+                            }
+                            break;
+                        case 3:
+                            if (((CheckInEvent)e).CheckIn.Open)
+                            {
+                                lbl_checkIn3.Background = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+                                lbl_checkIn3.Background = new SolidColorBrush(Colors.Red);
+                            }
+                            break;
+                        case 4:
+                            if (((CheckInEvent)e).CheckIn.Open)
+                            {
+                                lbl_checkIn4.Background = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+                                lbl_checkIn4.Background = new SolidColorBrush(Colors.Red);
+                            }
+                            break;
+                        case 5:
+                            if (((CheckInEvent)e).CheckIn.Open)
+                            {
+                                lbl_checkIn5.Background = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+                                lbl_checkIn5.Background = new SolidColorBrush(Colors.Red);
+                            }
+                            break;
+                        case 6:
+                            if (((CheckInEvent)e).CheckIn.Open)
+                            {
+                                lbl_checkIn6.Background = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+                                lbl_checkIn6.Background = new SolidColorBrush(Colors.Red);
+                            }
+                            break;
+                        case 7:
+                            if (((CheckInEvent)e).CheckIn.Open)
+                            {
+                                lbl_checkIn7.Background = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+                                lbl_checkIn7.Background = new SolidColorBrush(Colors.Red);
+                            }
+                            break;
+                        case 8:
+                            if (((CheckInEvent)e).CheckIn.Open)
+                            {
+                                lbl_checkIn8.Background = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+                                lbl_checkIn8.Background = new SolidColorBrush(Colors.Red);
+                            }
+                            break;
+                        case 9:
+                            if (((CheckInEvent)e).CheckIn.Open)
+                            {
+                                lbl_checkIn9.Background = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+                                lbl_checkIn9.Background = new SolidColorBrush(Colors.Red);
+                            }
+                            break;
+                    }
+                }));
+            }
         }
+
     }
 }

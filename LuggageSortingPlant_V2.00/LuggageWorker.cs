@@ -13,19 +13,12 @@ namespace LuggageSortingPlant_V2._00
     class LuggageWorker
     {
         #region Fields
-        private string workerName;
 
         #endregion
         public EventHandler luggageCreated;
 
 
         #region Properties
-        public string WorkerName
-        {
-            get { return workerName; }
-            set { workerName = value; }
-        }
-
 
         #endregion
 
@@ -36,10 +29,7 @@ namespace LuggageSortingPlant_V2._00
         {
 
         }
-        public LuggageWorker(string workerName)
-        {
-            this.workerName = workerName;
-        }
+
         #endregion
 
 
@@ -109,8 +99,7 @@ namespace LuggageSortingPlant_V2._00
 
                             luggage.FlightNumber = randomFlightNumber;
                             MainServer.luggageBuffer[MainServer.MaxLuggageBuffer - 1] = luggage;
-                            MainServer.outPut.PrintLuggage(MainServer.MaxLuggageBuffer - 1);
-                            //i = MainServer.luggageBuffer.Length;
+                           // MainServer.outPut.PrintLuggage(MainServer.MaxLuggageBuffer - 1);
                             for (int i = 0; i < MainServer.tempFlightPlans.Length; i++)
                             {
                                 MainServer.tempFlightPlans[i] = null;

@@ -10,7 +10,6 @@ namespace LuggageSortingPlant_V2._00
     class CheckIn
     {
         #region Fields
-        private string workerName;
         private bool open;
         private int checkInNumber;
 
@@ -19,11 +18,7 @@ namespace LuggageSortingPlant_V2._00
 
 
         #region Properties
-        public string WorkerName
-        {
-            get { return workerName; }
-            set { workerName = value; }
-        }
+
         public bool Open
         {
             get { return open; }
@@ -43,9 +38,8 @@ namespace LuggageSortingPlant_V2._00
         {
 
         }
-        public CheckIn(string workerName, bool open, int checkInNumber)
+        public CheckIn(bool open, int checkInNumber)
         {
-            this.workerName = workerName;
             this.open = open;
             this.checkInNumber = checkInNumber;
         }

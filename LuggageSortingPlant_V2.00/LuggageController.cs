@@ -8,17 +8,23 @@ using System.Windows.Threading;
 
 namespace LuggageSortingPlant_V2._00
 {
+    //--------------------------------------------------------------
+    //This is a controller class to get the count of Luggage running around in the hall,
+    //looking for a checkIn counter.
+    //--------------------------------------------------------------
     class LuggageController
 
     {
+
+
+
         public EventHandler countLuggage;
-        //   public LuggageWorker luggageWorker = new LuggageWorker();
         public Thread LuggageControllerThread { get; set; }
 
         public LuggageController()
         {
-            Thread thread = new Thread(RunThread);
-            thread.Start();
+            Thread luggageBufferThread = new Thread(RunThread);
+            luggageBufferThread.Start();
         }
 
         public void RunThread()
@@ -33,7 +39,7 @@ namespace LuggageSortingPlant_V2._00
 
         private int CountLuggageInLuggageBuffer()
         {
-                Monitor.Enter(MainServer.luggageBuffer);
+            Monitor.Enter(MainServer.luggageBuffer);
             try
             {
                 int temp = 0;
@@ -44,7 +50,7 @@ namespace LuggageSortingPlant_V2._00
                         temp++;
                     }
                 }
-                return temp;     
+                return temp;
 
             }
             finally
