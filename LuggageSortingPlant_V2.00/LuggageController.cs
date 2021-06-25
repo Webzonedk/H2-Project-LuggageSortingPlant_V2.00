@@ -11,7 +11,7 @@ namespace LuggageSortingPlant_V2._00
     class LuggageController
 
     {
-        public EventHandler luggageCreated;
+        public EventHandler countLuggage;
         //   public LuggageWorker luggageWorker = new LuggageWorker();
         public Thread LuggageControllerThread { get; set; }
 
@@ -25,17 +25,14 @@ namespace LuggageSortingPlant_V2._00
         {
             while (true)
             {
-
-                int counter = FindLastFreeIndex();
-                                           //Logi getting number of luggage
-             luggageCreated?.Invoke(this, new LuggageEvent(counter));//Invoking the luggage and send it to the listener
-
+                int counter = CountLuggageInLuggageBuffer();
+                countLuggage?.Invoke(this, new LuggageEvent(counter));//Invoking the luggage and send it to the listener
             }
         }
-        private int FindLastFreeIndex()
-        {
 
-          
+
+        private int CountLuggageInLuggageBuffer()
+        {
                 Monitor.Enter(MainServer.luggageBuffer);
             try
             {

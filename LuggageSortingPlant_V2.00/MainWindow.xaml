@@ -44,15 +44,17 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="1" Grid.Row="1" FontSize="20" FontWeight="SemiBold" Text="FlightPlans" Margin="5,5,5,5" />
         <TextBlock x:Name="FlightPlans" Grid.Column="1" Grid.Row="2" FontSize="18" FontWeight="SemiBold" Text="Here comes Flightplans" Margin="5,5,5,5" />
-        <TextBlock x:Name="LuggageInQueueHeader" Grid.Column="3" Grid.Row="1"  FontSize="20" FontWeight="SemiBold" Text="Luggage produced" Margin="5,5,5,5" VerticalAlignment="Bottom" />
+        <TextBlock x:Name="LuggageInQueueHeader" Grid.Column="3" Grid.Row="1"  FontSize="20" FontWeight="SemiBold" Text="Luggage " Margin="5,5,5,5" VerticalAlignment="Bottom" />
         <Label x:Name="lbl_luggageInQueue" Grid.Column="3" Grid.Row="2"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" />
-        <Button Content="Start" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="14" VerticalAlignment="Center" Width="125" Height="35" Background="#FF2CB9FB" Foreground="White" FontWeight="Bold" FontSize="16" Click="Button_Start"/>
-        <Button Content="Stop" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="14" VerticalAlignment="Center" Width="125" Height="35" Background="#FF2CB9FB" Foreground="White" FontWeight="Bold" FontSize="16" Click="Button_Stop"/>
         <TextBlock x:Name="LuggageInQueueHeader1" Grid.Column="3" Grid.Row="5"  FontSize="20" FontWeight="SemiBold" Text="Hall splitter" Margin="5,5,5,5" VerticalAlignment="Bottom" />
+        <!--Checkin counters-->
         <Label x:Name="lbl_checkIn1" Grid.Column="4" Grid.Row="2"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
         <Label x:Name="lbl_checkIn2" Grid.Column="4" Grid.Row="3"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
         <Label x:Name="lbl_checkIn3" Grid.Column="4" Grid.Row="4"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
         <Label x:Name="lbl_checkIn4" Grid.Column="4" Grid.Row="5"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
         <Label x:Name="lbl_checkIn5" Grid.Column="4" Grid.Row="6"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <!--Start and stop buttons-->
+        <Button Content="Start" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="14" VerticalAlignment="Center" Width="125" Height="35" Background="#FF2CB9FB" Foreground="White" FontWeight="Bold" FontSize="16" Click="Button_Start"/>
+        <Button Content="Stop" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="14" VerticalAlignment="Center" Width="125" Height="35" Background="#FF2CB9FB" Foreground="White" FontWeight="Bold" FontSize="16" Click="Button_Stop"/>
     </Grid>
 </Window>

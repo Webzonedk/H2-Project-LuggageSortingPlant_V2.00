@@ -34,7 +34,7 @@ namespace LuggageSortingPlant_V2._00
         private void StartLuggageController()
         {
         LuggageController luggageController = new LuggageController();
-            luggageController.luggageCreated += OnLuggageCreated;
+            luggageController.countLuggage += OnLuggageCreated;
         }
 
 

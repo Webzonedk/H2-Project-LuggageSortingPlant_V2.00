@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 
 namespace LuggageSortingPlant_V2._00
 {
-    public class LuggageEvent : EventArgs
+    class CheckInEvent : EventArgs
     {
         public int Count { get; set; }
 
-        public LuggageEvent(int count)
+        public CheckInEvent(int count)
         {
             Count = count;
-
         }
-
-
-
     }
 }
