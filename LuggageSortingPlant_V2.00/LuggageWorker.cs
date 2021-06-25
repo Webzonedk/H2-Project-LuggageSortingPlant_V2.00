@@ -16,7 +16,7 @@ namespace LuggageSortingPlant_V2._00
         private string workerName;
 
         #endregion
-
+        public EventHandler luggageCreated;
 
 
         #region Properties
@@ -115,6 +115,7 @@ namespace LuggageSortingPlant_V2._00
                             {
                                 MainServer.tempFlightPlans[i] = null;
                             }
+                           
                         }
                     }
                     else
@@ -132,6 +133,7 @@ namespace LuggageSortingPlant_V2._00
                     Thread.Sleep(randomSleep);
                 }
             }
+                    
 
         }
 

@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using Bogus;
+using System.Diagnostics;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace LuggageSortingPlant_V2._00
 {
@@ -44,7 +47,7 @@ namespace LuggageSortingPlant_V2._00
         public static FlightPlan[] flightPlanLog = new FlightPlan[100];
 
         public static Luggage[] luggageBuffer = new Luggage[MaxLuggageBuffer];
-        //  public static Luggage[] tempLuggage = new Luggage[1];//To have an object to keep temp luggage in the mainentrance
+        //  public static Luggage[] tempLuggage = new Luggage[1]; //To have an object to keep temp luggage in the mainentrance
 
         public static CheckInBuffer[] checkInBuffers = new CheckInBuffer[amountOfCheckIns];
         public static Thread[] checkInBufferWorkers = new Thread[amountOfCheckIns];
@@ -58,6 +61,8 @@ namespace LuggageSortingPlant_V2._00
         public static Thread[] gateBufferWorkers = new Thread[amountOfGates];
         public static Gate[] gates = new Gate[amountOfGates];
         public static Thread[] gateWorkers = new Thread[amountOfGates];
+
+
 
 
 
@@ -171,6 +176,8 @@ namespace LuggageSortingPlant_V2._00
 
         public void RunSimulation()
         {
+
+            Debug.WriteLine("Now running");
             CurrentTime = DateTime.Now;//Setting the current time
                                        // CheckIn checkIn = new();//Initializing CheckIn 
 
@@ -188,6 +195,7 @@ namespace LuggageSortingPlant_V2._00
             FlightPlanQueueWorker sortFlightPlan = new FlightPlanQueueWorker();
             FlightPlanLogQueueWorker sortFlightPlanLog = new FlightPlanLogQueueWorker();
             LuggageWorker createLuggage = new LuggageWorker();
+
             LuggageQueueWorker sortLuggage = new LuggageQueueWorker();
             MainEntrance mainEntrance = new MainEntrance();
             SortingUnitQueueWorker sortingUnitQueue = new SortingUnitQueueWorker();
@@ -300,5 +308,7 @@ namespace LuggageSortingPlant_V2._00
 
             #endregion
         }
+
+
     }
 }

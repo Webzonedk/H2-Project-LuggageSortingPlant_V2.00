@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace LuggageSortingPlant_V2._00
 {
@@ -20,11 +21,44 @@ namespace LuggageSortingPlant_V2._00
     /// </summary>
     public partial class MainWindow : Window
     {
+         MainServer manager = new MainServer();
+
         public MainWindow()
         {
             InitializeComponent();
-            MainServer manager = new MainServer();
-            //  MainServer manager = new MainServer();
+            manager = new MainServer();
+
+            StartLuggageController();
+        }
+
+        private void StartLuggageController()
+        {
+        LuggageController luggageController = new LuggageController();
+            luggageController.luggageCreated += OnLuggageCreated;
+        }
+
+
+
+        public void OnLuggageCreated(object sender, EventArgs e)//Event Listener
+        {
+
+            //EventListener
+            if (e is LuggageEvent)
+            {
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    lbl_luggageInQueue.Content = ((LuggageEvent)e).Count.ToString();
+                }));
+            }
+        }
+
+        private void Button_Start(object sender, RoutedEventArgs e)
+        {
+            manager.RunSimulation();
+        }
+        private void Button_Stop(object sender, RoutedEventArgs e)
+        {
+           
         }
     }
 }
