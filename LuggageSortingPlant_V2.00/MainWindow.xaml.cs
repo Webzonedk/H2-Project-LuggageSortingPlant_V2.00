@@ -29,8 +29,8 @@ namespace LuggageSortingPlant_V2._00
             manager = new MainServer();
 
             StartLuggageController();
-            //CheckInBufferCounters();
-            CheckInsOnAndOffColor();
+           // CheckInBufferCounters();
+           // CheckInsOnAndOffColor();
         }
 
 
@@ -199,14 +199,14 @@ namespace LuggageSortingPlant_V2._00
         //---------------------------------------------------------------------------
         //Controlling the counters on the checkins.
         //---------------------------------------------------------------------------
-        //private void CheckInBufferCounters()
-        //{
-        //    for (int i = 0; i < MainServer.amountOfCheckIns; i++)
-        //    {
-        //        CheckInBufferController checkInBufferController = new CheckInBufferController(i);
-        //        checkInBufferController.countBufferLuggage += CountLuggageInBuffers;
-        //    };
-        //}
+        private void CheckInBufferCounters()
+        {
+            for (int i = 0; i < MainServer.amountOfCheckIns; i++)
+            {
+                CheckInBufferController checkInBufferController = new CheckInBufferController(i);
+                checkInBufferController.countBufferLuggage += CountLuggageInBuffers;
+            };
+        }
 
 
         public void CountLuggageInBuffers(object sender, EventArgs e)//Event Listener

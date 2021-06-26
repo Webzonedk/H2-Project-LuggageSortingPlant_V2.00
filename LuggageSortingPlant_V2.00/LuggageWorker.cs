@@ -43,18 +43,18 @@ namespace LuggageSortingPlant_V2._00
             {
 
 
-                    Monitor.Enter(MainServer.luggageBuffer);//Locking the luggage lock
                 try
                 {
 
 
                     if (MainServer.luggageBuffer[MainServer.MaxLuggageBuffer - 1] == null)
                     {
+                        Monitor.Enter(MainServer.luggageBuffer);//Locking the luggage lock
                         //Added a check to ensure that the randomMax will not exceed the amount og flights in the flightplan
                         int randomMax = 0;
                         try
                         {
-                         //   Monitor.Enter(MainServer.flightPlans);//Locking the flightPlan lock
+                            //   Monitor.Enter(MainServer.flightPlans);//Locking the flightPlan lock
                             for (int i = 0; i < MainServer.flightPlans.Length; i++)
                             {
                                 if (MainServer.flightPlans[i] != null)
@@ -99,17 +99,17 @@ namespace LuggageSortingPlant_V2._00
 
                             luggage.FlightNumber = randomFlightNumber;
                             MainServer.luggageBuffer[MainServer.MaxLuggageBuffer - 1] = luggage;
-                           // MainServer.outPut.PrintLuggage(MainServer.MaxLuggageBuffer - 1);
+                            // MainServer.outPut.PrintLuggage(MainServer.MaxLuggageBuffer - 1);
                             for (int i = 0; i < MainServer.tempFlightPlans.Length; i++)
                             {
                                 MainServer.tempFlightPlans[i] = null;
                             }
-                           
+
                         }
                     }
                     else
                     {
-                        Monitor.Wait(MainServer.luggageBuffer);
+                      Monitor.Wait(MainServer.luggageBuffer);
                     }
                 }
                 finally
@@ -122,7 +122,7 @@ namespace LuggageSortingPlant_V2._00
                     Thread.Sleep(randomSleep);
                 }
             }
-                    
+
 
         }
 

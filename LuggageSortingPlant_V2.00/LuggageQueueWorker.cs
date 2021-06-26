@@ -37,12 +37,12 @@ namespace LuggageSortingPlant_V2._00
                 {
                     if (MainServer.luggageBuffer[0] == null)
                     {
+                    Monitor.Enter(MainServer.luggageBuffer);//Locking the thread
 
                         for (int i = 0; i < MainServer.luggageBuffer.Length - 1; i++)
                         {
                             if (MainServer.luggageBuffer[i] == null)
                             {
-                                Monitor.Enter(MainServer.luggageBuffer);//Locking the thread
                                 MainServer.luggageBuffer[i] = MainServer.luggageBuffer[i + 1];
                                 MainServer.luggageBuffer[i + 1] = null;
                             }

@@ -105,7 +105,7 @@ namespace LuggageSortingPlant_V2._00
                                             }
                                             else
                                             {
-                                                Monitor.Wait(MainServer.checkInBuffers[checkInNumber]);//Setting the thread in waiting state
+                                              //  Monitor.Wait(MainServer.checkInBuffers[checkInNumber]);//Setting the thread in waiting state
                                             };
                                         };
                                     };

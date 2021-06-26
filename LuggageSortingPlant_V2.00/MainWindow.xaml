@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LuggageSortingPlant_V2._00"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="The Airport Overview" Height="1000" Width="1900">
+        Title="TheAirportOverview" Height="1000" Width="1900">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
