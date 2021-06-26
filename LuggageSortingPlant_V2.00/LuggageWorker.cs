@@ -54,7 +54,7 @@ namespace LuggageSortingPlant_V2._00
                         int randomMax = 0;
                         try
                         {
-                         //   Monitor.Enter(MainServer.flightPlans);//Locking the flightPlan lock
+                            Monitor.Enter(MainServer.flightPlans);//Locking the flightPlan lock
                             for (int i = 0; i < MainServer.flightPlans.Length; i++)
                             {
                                 if (MainServer.flightPlans[i] != null)
@@ -67,8 +67,8 @@ namespace LuggageSortingPlant_V2._00
                         finally
                         {
 
-                            //Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
-                            //Monitor.Exit(MainServer.flightPlans);//Release the lock
+                            Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
+                            Monitor.Exit(MainServer.flightPlans);//Release the lock
 
                         }
 

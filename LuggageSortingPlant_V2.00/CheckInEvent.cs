@@ -8,13 +8,11 @@ namespace LuggageSortingPlant_V2._00
 {
     class CheckInEvent : EventArgs
     {
-        public int CheckInNumber { get; private set; }
-        public bool Status { get; private set; }
+        public CheckIn CheckIn { get; set; }
 
-        public CheckInEvent(int checkInNumber, bool status)
+        public CheckInEvent(CheckIn checkIn)
         {
-            CheckInNumber = checkInNumber;
-            Status = status;
+            CheckIn = checkIn;
         }
     }
 }
