@@ -56,13 +56,14 @@ namespace LuggageSortingPlant_V2._00
             {
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
                 {
-                    lbl_luggageInQueue.Content = ((LuggageEvent)e).Count.ToString();
+                    lbl_luggageInHall.Content = ((LuggageEvent)e).Count.ToString();
                 }));
             }
         }
 
-
+        //---------------------------------------------------------------------------
         //Controlling the colors on the checkins depending if they are open or closed
+        //---------------------------------------------------------------------------
         private void CheckInsOnAndOffColor()
         {
             for (int i = 0; i < MainServer.amountOfCheckIns; i++)
@@ -80,10 +81,10 @@ namespace LuggageSortingPlant_V2._00
             {
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
                 {
-                    switch (((CheckInEvent)e).CheckIn.CheckInNumber)
+                    switch (((CheckInEvent)e).CheckInNumber)//Check up on this it is getting null---------------------------------------------------------------------------------------------------------------
                     {
                         case 0:
-                            if (((CheckInEvent)e).CheckIn.Open)
+                            if (((CheckInEvent)e).Status)
                             {
                                 lbl_checkIn0.Background = new SolidColorBrush(Colors.Green);
                             }
@@ -93,7 +94,7 @@ namespace LuggageSortingPlant_V2._00
                             }
                             break;
                         case 1:
-                            if (((CheckInEvent)e).CheckIn.Open)
+                            if (((CheckInEvent)e).Status)
                             {
                                 lbl_checkIn1.Background = new SolidColorBrush(Colors.Green);
                             }
@@ -103,7 +104,7 @@ namespace LuggageSortingPlant_V2._00
                             }
                             break;
                         case 2:
-                            if (((CheckInEvent)e).CheckIn.Open)
+                            if (((CheckInEvent)e).Status)
                             {
                                 lbl_checkIn2.Background = new SolidColorBrush(Colors.Green);
                             }
@@ -113,7 +114,7 @@ namespace LuggageSortingPlant_V2._00
                             }
                             break;
                         case 3:
-                            if (((CheckInEvent)e).CheckIn.Open)
+                            if (((CheckInEvent)e).Status)
                             {
                                 lbl_checkIn3.Background = new SolidColorBrush(Colors.Green);
                             }
@@ -123,7 +124,7 @@ namespace LuggageSortingPlant_V2._00
                             }
                             break;
                         case 4:
-                            if (((CheckInEvent)e).CheckIn.Open)
+                            if (((CheckInEvent)e).Status)
                             {
                                 lbl_checkIn4.Background = new SolidColorBrush(Colors.Green);
                             }
@@ -133,7 +134,7 @@ namespace LuggageSortingPlant_V2._00
                             }
                             break;
                         case 5:
-                            if (((CheckInEvent)e).CheckIn.Open)
+                            if (((CheckInEvent)e).Status)
                             {
                                 lbl_checkIn5.Background = new SolidColorBrush(Colors.Green);
                             }
@@ -143,7 +144,7 @@ namespace LuggageSortingPlant_V2._00
                             }
                             break;
                         case 6:
-                            if (((CheckInEvent)e).CheckIn.Open)
+                            if (((CheckInEvent)e).Status)
                             {
                                 lbl_checkIn6.Background = new SolidColorBrush(Colors.Green);
                             }
@@ -153,7 +154,7 @@ namespace LuggageSortingPlant_V2._00
                             }
                             break;
                         case 7:
-                            if (((CheckInEvent)e).CheckIn.Open)
+                            if (((CheckInEvent)e).Status)
                             {
                                 lbl_checkIn7.Background = new SolidColorBrush(Colors.Green);
                             }
@@ -163,7 +164,7 @@ namespace LuggageSortingPlant_V2._00
                             }
                             break;
                         case 8:
-                            if (((CheckInEvent)e).CheckIn.Open)
+                            if (((CheckInEvent)e).Status)
                             {
                                 lbl_checkIn8.Background = new SolidColorBrush(Colors.Green);
                             }
@@ -173,7 +174,7 @@ namespace LuggageSortingPlant_V2._00
                             }
                             break;
                         case 9:
-                            if (((CheckInEvent)e).CheckIn.Open)
+                            if (((CheckInEvent)e).Status)
                             {
                                 lbl_checkIn9.Background = new SolidColorBrush(Colors.Green);
                             }

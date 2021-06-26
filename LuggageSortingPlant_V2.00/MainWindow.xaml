@@ -42,23 +42,77 @@
             <RowDefinition Height="20" />
 
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="20" FontWeight="SemiBold" Text="FlightPlans" Margin="5,5,5,5" />
-        <TextBlock x:Name="FlightPlans" Grid.Column="1" Grid.Row="2" FontSize="18" FontWeight="SemiBold" Text="Here comes Flightplans" Margin="5,5,5,5" />
-        <TextBlock x:Name="LuggageInQueueHeader" Grid.Column="3" Grid.Row="1"  FontSize="20" FontWeight="SemiBold" Text="Luggage " Margin="5,5,5,5" VerticalAlignment="Bottom" />
-        <Label x:Name="lbl_luggageInQueue" Grid.Column="3" Grid.Row="2"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" />
-        <TextBlock x:Name="LuggageInQueueHeader1" Grid.Column="3" Grid.Row="5"  FontSize="20" FontWeight="SemiBold" Text="Hall splitter" Margin="5,5,5,5" VerticalAlignment="Bottom" />
+        
+        <!--flightPlans-->
+        <TextBlock x:Name="lbl_flightPlansHeader" Grid.Column="1" Grid.Row="1" FontSize="20" FontWeight="SemiBold" Text="FlightPlans" Margin="5,5,5,5" />
+        <TextBlock x:Name="lbl_flightPlans" Grid.Column="1" Grid.Row="2" FontSize="18" FontWeight="SemiBold" Text="Here comes Flightplans" Margin="5,5,5,5" />
        
+        <!--Main hall-->
+        <Label x:Name="lbl_hallHeader" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2"  FontSize="20" FontWeight="SemiBold" Content="Main Hall " Margin="5,5,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+        <Image Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="4" Source="images/hall.jpg" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_luggageInHall" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2" FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" />
+
+        <!--Queue to checkIns-->
+        <Label x:Name="lbl_checkInQueueHeader" Grid.Column="4" Grid.Row="1"  FontSize="20" FontWeight="SemiBold" Content="Queues"  VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+        <Label x:Name="lbl_checkInQueue0" Grid.Column="4" Grid.Row="2" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_checkInQueue1" Grid.Column="4" Grid.Row="3" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_checkInQueue2" Grid.Column="4" Grid.Row="4" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_checkInQueue3" Grid.Column="4" Grid.Row="5" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_checkInQueue4" Grid.Column="4" Grid.Row="6" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_checkInQueue5" Grid.Column="4" Grid.Row="7" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_checkInQueue6" Grid.Column="4" Grid.Row="8" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_checkInQueue7" Grid.Column="4" Grid.Row="9" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_checkInQueue8" Grid.Column="4" Grid.Row="10" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_checkInQueue9" Grid.Column="4" Grid.Row="11" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+     
         <!--Checkin counters-->
-        <Label x:Name="lbl_checkIn0" Grid.Column="4" Grid.Row="2"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
-        <Label x:Name="lbl_checkIn1" Grid.Column="4" Grid.Row="3"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
-        <Label x:Name="lbl_checkIn2" Grid.Column="4" Grid.Row="4"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
-        <Label x:Name="lbl_checkIn3" Grid.Column="4" Grid.Row="5"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
-        <Label x:Name="lbl_checkIn4" Grid.Column="4" Grid.Row="6"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
-        <Label x:Name="lbl_checkIn5" Grid.Column="4" Grid.Row="7"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
-        <Label x:Name="lbl_checkIn6" Grid.Column="4" Grid.Row="8"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
-        <Label x:Name="lbl_checkIn7" Grid.Column="4" Grid.Row="9"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
-        <Label x:Name="lbl_checkIn8" Grid.Column="4" Grid.Row="10"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
-        <Label x:Name="lbl_checkIn9" Grid.Column="4" Grid.Row="11"  FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_checkInHeader" Grid.Column="5" Grid.Row="1"  FontSize="20" FontWeight="SemiBold" Content="CheckIns" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+        <Label x:Name="lbl_checkIn0" Grid.Column="5" Grid.Row="2"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_checkIn1" Grid.Column="5" Grid.Row="3"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_checkIn2" Grid.Column="5" Grid.Row="4"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_checkIn3" Grid.Column="5" Grid.Row="5"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_checkIn4" Grid.Column="5" Grid.Row="6"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_checkIn5" Grid.Column="5" Grid.Row="7"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_checkIn6" Grid.Column="5" Grid.Row="8"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_checkIn7" Grid.Column="5" Grid.Row="9"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_checkIn8" Grid.Column="5" Grid.Row="10"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_checkIn9" Grid.Column="5" Grid.Row="11"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+
+        <!--Sorting Unit-->
+        <Label x:Name="lbl_sortingHeader" Grid.Column="6" Grid.Row="5" Grid.ColumnSpan="3"  FontSize="20" FontWeight="SemiBold" Content="Sorting Unit " Margin="5,5,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+        <Image Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="3" Grid.RowSpan="2" Source="images/sortingUnit.jpg" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_sortingQueueHeader" Grid.Column="6" Grid.Row="5" Grid.ColumnSpan="3"  FontSize="20" FontWeight="SemiBold" Content="Sorting Unit " Margin="5,5,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+        <Label x:Name="lbl_sortingQueue" Grid.Column="6" Grid.Row="6" FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" />
+
+        <!--Queue to Gates-->
+        <Label x:Name="lbl_gateQueueHeader" Grid.Column="9" Grid.Row="1"  FontSize="20" FontWeight="SemiBold" Content="Queues"  VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+        <Label x:Name="lbl_gateQueue0" Grid.Column="9" Grid.Row="4" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_gateQueue1" Grid.Column="9" Grid.Row="5" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_gateQueue2" Grid.Column="9" Grid.Row="6" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_gateQueue3" Grid.Column="9" Grid.Row="7" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_gateQueue4" Grid.Column="9" Grid.Row="8" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_gateQueue5" Grid.Column="9" Grid.Row="9" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+     
+        <!--Gate counters-->
+        <Label x:Name="gateHeader" Grid.Column="10" Grid.Row="1"  FontSize="20" FontWeight="SemiBold" Content="Gates" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+        <Label x:Name="lbl_gate0" Grid.Column="10" Grid.Row="4"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_gate1" Grid.Column="10" Grid.Row="5"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_gate2" Grid.Column="10" Grid.Row="6"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_gate3" Grid.Column="10" Grid.Row="7"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_gate4" Grid.Column="10" Grid.Row="8"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_gate5" Grid.Column="10" Grid.Row="9"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+
+
+        <!--AirPlanes-->
+        <Image x:Name="lbl_flight0" Grid.Column="11" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Source="images/plain.png" />
+        <Image x:Name="lbl_flight1" Grid.Column="11" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Source="images/plain.png" />
+        <Image x:Name="lbl_flight2" Grid.Column="11" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Source="images/plain.png" />
+        <Image x:Name="lbl_flight3" Grid.Column="11" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Source="images/plain.png" />
+        <Image x:Name="lbl_flight4" Grid.Column="11" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center" Source="images/plain.png" />
+        <Image x:Name="lbl_flight5" Grid.Column="11" Grid.Row="9" HorizontalAlignment="Center" VerticalAlignment="Center" Source="images/plain.png" />
+
+
+
         <!--Start and stop buttons-->
         <Button Content="Start" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="14" VerticalAlignment="Center" Width="125" Height="35" Background="#FF2CB9FB" Foreground="White" FontWeight="Bold" FontSize="16" Click="Button_Start"/>
         <Button Content="Stop" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="14" VerticalAlignment="Center" Width="125" Height="35" Background="#FF2CB9FB" Foreground="White" FontWeight="Bold" FontSize="16" Click="Button_Stop"/>

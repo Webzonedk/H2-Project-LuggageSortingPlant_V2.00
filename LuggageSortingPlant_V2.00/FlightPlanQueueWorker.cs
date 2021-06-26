@@ -29,7 +29,6 @@ namespace LuggageSortingPlant_V2._00
         {
             while (true)
             {
-                    Monitor.Enter(MainServer.flightPlans);//Locking the thread
                 try
                 {
 
@@ -38,19 +37,17 @@ namespace LuggageSortingPlant_V2._00
                     {
                         if (MainServer.flightPlans[i] == null)
                         {
+                            Monitor.Enter(MainServer.flightPlans);//Locking the thread
                             MainServer.flightPlans[i] = MainServer.flightPlans[i + 1];
                             MainServer.flightPlans[i + 1] = null;
+                            Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
+                            Monitor.Exit(MainServer.flightPlans);//Release the lock
                         }
-                        else
-                        {
-                           // Monitor.Wait(MainServer.flightPlans);
-                        }
+
                     }
                 }
                 finally
                 {
-                    Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
-                    Monitor.Exit(MainServer.flightPlans);//Release the lock
 
                 }
             }

@@ -59,7 +59,7 @@ namespace LuggageSortingPlant_V2._00
 
                 DateTime departure;
                     Monitor.Enter(MainServer.checkInBuffers[CheckInNumber]);//Locking the thread
-                    Monitor.Enter(MainServer.flightPlans);//Locking the thread
+              //      Monitor.Enter(MainServer.flightPlans);//Locking the thread
                 try
                 {
 
@@ -99,14 +99,14 @@ namespace LuggageSortingPlant_V2._00
                     }
                     else
                     {
-                        Monitor.Wait(MainServer.flightPlans);//Locking the thread
+                 //       Monitor.Wait(MainServer.flightPlans);//Locking the thread
                         Monitor.Wait(MainServer.checkInBuffers[CheckInNumber]);//Locking the thread
                     };
                 }
                 finally
                 {
-                    Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
-                    Monitor.Exit(MainServer.flightPlans);//Release the lock
+             //       Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
+             //       Monitor.Exit(MainServer.flightPlans);//Release the lock
                     Monitor.PulseAll(MainServer.checkInBuffers[CheckInNumber]);//Sending signal to other thread
                     Monitor.Exit(MainServer.checkInBuffers[CheckInNumber]);//Release the lock
                 };

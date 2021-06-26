@@ -44,8 +44,21 @@ namespace LuggageSortingPlant_V2._00
         {
             while (true)
             {
-                CheckIn checkIn = MainServer.checkIns[checkInNumber];
-                OpenCloseCheckIns?.Invoke(this, new CheckInEvent(checkIn));//Invoking the luggage and send it to the listener
+                try
+                {
+                    if (MainServer.checkIns[CheckInNumber] != null)
+                   //     Monitor.Enter(MainServer.checkIns[CheckInNumber]);
+                    {
+                        bool status = MainServer.checkIns[CheckInNumber].Open;
+                        OpenCloseCheckIns?.Invoke(this, new CheckInEvent(CheckInNumber, status));//Invoking the luggage and send it to the listener
+                    }
+                    Thread.Sleep(200);
+                }
+                finally
+                {
+                    //Monitor.PulseAll(MainServer.checkIns[CheckInNumber]);
+                    //Monitor.Exit(MainServer.checkIns[CheckInNumber]);
+                }
             }
         }
 
