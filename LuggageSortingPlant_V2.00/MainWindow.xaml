@@ -114,7 +114,7 @@
 
 
         <!--Start and stop buttons-->
-        <Button Content="Start" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="14" VerticalAlignment="Center" Width="125" Height="35" Background="#FF2CB9FB" Foreground="White" FontWeight="Bold" FontSize="16" Click="Button_Start"/>
-        <Button Content="Stop" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="14" VerticalAlignment="Center" Width="125" Height="35" Background="#FF2CB9FB" Foreground="White" FontWeight="Bold" FontSize="16" Click="Button_Stop"/>
+        <Button Content="Start" Grid.Column="9" Grid.Row="11" HorizontalAlignment="Center" VerticalAlignment="Center" Width="125" Height="35" Background="#FF2CB9FB" Foreground="White" FontWeight="Bold" FontSize="16" Click="Button_Start"/>
+        <Button Content="Stop" Grid.Column="11" Grid.Row="11" HorizontalAlignment="Center" VerticalAlignment="Center" Width="125" Height="35" Background="#FF2CB9FB" Foreground="White" FontWeight="Bold" FontSize="16" Click="Button_Stop"/>
     </Grid>
 </Window>
