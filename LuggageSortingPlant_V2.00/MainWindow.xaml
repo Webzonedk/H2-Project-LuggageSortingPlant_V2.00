@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LuggageSortingPlant_V2._00"
         mc:Ignorable="d"
-        Title="TheMultiSuperDuperAirportWithAlmostNoFeaturesWorkingAsSupposedTo" Height="1000" Width="1900">
+        WindowStartupLocation="CenterScreen"
+        Title="The Airport Overview" Height="1000" Width="1900">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
@@ -42,11 +43,14 @@
             <RowDefinition Height="20" />
 
         </Grid.RowDefinitions>
-        
+
         <!--flightPlans-->
         <TextBlock x:Name="lbl_flightPlansHeader" Grid.Column="1" Grid.Row="1" FontSize="20" FontWeight="SemiBold" Text="FlightPlans" Margin="5,5,5,5" />
         <TextBlock x:Name="lbl_flightPlans" Grid.Column="1" Grid.Row="2" FontSize="18" FontWeight="SemiBold" Text="Here comes Flightplans" Margin="5,5,5,5" />
-       
+        <StackPanel Grid.Column="1" Grid.Row="3">
+
+        </StackPanel>
+
         <!--Main hall-->
         <Label x:Name="lbl_hallHeader" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2"  FontSize="20" FontWeight="SemiBold" Content="Main Hall " Margin="5,5,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
         <Image Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="4" Source="images/hall.jpg" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -64,7 +68,7 @@
         <Label x:Name="lbl_checkInQueue7" Grid.Column="4" Grid.Row="9" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
         <Label x:Name="lbl_checkInQueue8" Grid.Column="4" Grid.Row="10" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
         <Label x:Name="lbl_checkInQueue9" Grid.Column="4" Grid.Row="11" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-     
+
         <!--Checkin counters-->
         <Label x:Name="lbl_checkInHeader" Grid.Column="5" Grid.Row="1"  FontSize="20" FontWeight="SemiBold" Content="CheckIns" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
         <Label x:Name="lbl_checkIn0" Grid.Column="5" Grid.Row="2"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
@@ -92,7 +96,7 @@
         <Label x:Name="lbl_gateQueue3" Grid.Column="9" Grid.Row="7" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
         <Label x:Name="lbl_gateQueue4" Grid.Column="9" Grid.Row="8" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
         <Label x:Name="lbl_gateQueue5" Grid.Column="9" Grid.Row="9" FontSize="20" FontWeight="SemiBold" Content="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-     
+
         <!--Gate counters-->
         <Label x:Name="gateHeader" Grid.Column="10" Grid.Row="1"  FontSize="20" FontWeight="SemiBold" Content="Gates" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
         <Label x:Name="lbl_gate0" Grid.Column="10" Grid.Row="4"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />

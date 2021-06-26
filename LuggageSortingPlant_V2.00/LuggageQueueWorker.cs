@@ -35,7 +35,6 @@ namespace LuggageSortingPlant_V2._00
             {
                 try
                 {
-                    Monitor.Enter(MainServer.luggageBuffer);//Locking the thread
                     if (MainServer.luggageBuffer[0] == null)
                     {
 
@@ -43,6 +42,7 @@ namespace LuggageSortingPlant_V2._00
                         {
                             if (MainServer.luggageBuffer[i] == null)
                             {
+                                Monitor.Enter(MainServer.luggageBuffer);//Locking the thread
                                 MainServer.luggageBuffer[i] = MainServer.luggageBuffer[i + 1];
                                 MainServer.luggageBuffer[i + 1] = null;
                             }

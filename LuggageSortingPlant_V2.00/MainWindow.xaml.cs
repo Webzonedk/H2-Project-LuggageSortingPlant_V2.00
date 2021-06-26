@@ -29,8 +29,11 @@ namespace LuggageSortingPlant_V2._00
             manager = new MainServer();
 
             StartLuggageController();
+            //CheckInBufferCounters();
             CheckInsOnAndOffColor();
         }
+
+
         private void Button_Start(object sender, RoutedEventArgs e)
         {
             manager.RunSimulation();
@@ -40,6 +43,10 @@ namespace LuggageSortingPlant_V2._00
 
         }
 
+
+        //---------------------------------------------------------------------------
+        //Coiunting the amount of luggage in the luggageBuffer
+        //---------------------------------------------------------------------------
         private void StartLuggageController()
         {
             LuggageController luggageController = new LuggageController();
@@ -68,8 +75,8 @@ namespace LuggageSortingPlant_V2._00
         {
             for (int i = 0; i < MainServer.amountOfCheckIns; i++)
             {
-            CheckInController checkInController = new CheckInController(i);
-            checkInController.OpenCloseCheckIns += ChangeColor;
+                CheckInController checkInController = new CheckInController(i);
+                checkInController.openCloseCheckIns += ChangeColor;
             }
         }
 
@@ -81,7 +88,7 @@ namespace LuggageSortingPlant_V2._00
             {
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
                 {
-                    switch (((CheckInEvent)e).CheckInNumber)//Check up on this it is getting null---------------------------------------------------------------------------------------------------------------
+                    switch (((CheckInEvent)e).CheckInNumber)//Setting status depending on the checkin number
                     {
                         case 0:
                             if (((CheckInEvent)e).Status)
@@ -183,10 +190,55 @@ namespace LuggageSortingPlant_V2._00
                                 lbl_checkIn9.Background = new SolidColorBrush(Colors.Red);
                             }
                             break;
-                    }
+                    };
                 }));
-            }
+            };
         }
 
+
+        //---------------------------------------------------------------------------
+        //Controlling the counters on the checkins.
+        //---------------------------------------------------------------------------
+        //private void CheckInBufferCounters()
+        //{
+        //    for (int i = 0; i < MainServer.amountOfCheckIns; i++)
+        //    {
+        //        CheckInBufferController checkInBufferController = new CheckInBufferController(i);
+        //        checkInBufferController.countBufferLuggage += CountLuggageInBuffers;
+        //    };
+        //}
+
+
+        public void CountLuggageInBuffers(object sender, EventArgs e)//Event Listener
+        {
+            if (e is CheckInBufferEvent)
+            {
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    switch (((CheckInBufferEvent)e).CheckInNumber)//Setting status depending on the checkin number
+                    {
+                        case 0:
+                            lbl_checkInQueue0.Content = ((CheckInBufferEvent)e).Count.ToString();
+                            break;
+                        case 1:
+                            lbl_checkInQueue1.Content = ((CheckInBufferEvent)e).Count.ToString();
+                            break;
+                        case 2:
+                            lbl_checkInQueue2.Content = ((CheckInBufferEvent)e).Count.ToString();
+                            break;
+                        case 3:
+                            lbl_checkInQueue3.Content = ((CheckInBufferEvent)e).Count.ToString();
+                            break;
+                        case 4:
+                            lbl_checkInQueue4.Content = ((CheckInBufferEvent)e).Count.ToString();
+                            break;
+                        case 5:
+                            lbl_checkInQueue5.Content = ((CheckInBufferEvent)e).Count.ToString();
+                            break;
+
+                    };
+                }));
+            };
+        }
     }
 }

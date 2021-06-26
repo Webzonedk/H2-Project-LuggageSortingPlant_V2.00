@@ -14,7 +14,7 @@ namespace LuggageSortingPlant_V2._00
     class CheckInController
     {
 
-        public EventHandler OpenCloseCheckIns;
+        public EventHandler openCloseCheckIns;
         private int checkInNumber;
         private Thread checkInOpenCloseThread;
 
@@ -50,7 +50,7 @@ namespace LuggageSortingPlant_V2._00
                    //     Monitor.Enter(MainServer.checkIns[CheckInNumber]);
                     {
                         bool status = MainServer.checkIns[CheckInNumber].Open;
-                        OpenCloseCheckIns?.Invoke(this, new CheckInEvent(CheckInNumber, status));//Invoking the luggage and send it to the listener
+                        openCloseCheckIns?.Invoke(this, new CheckInEvent(CheckInNumber, status));//Invoking the luggage and send it to the listener
                     }
                     Thread.Sleep(200);
                 }
@@ -61,13 +61,5 @@ namespace LuggageSortingPlant_V2._00
                 }
             }
         }
-
-        //private CheckIn GetCheckInState()
-        //{
-        //    for (int i = 0; i < MainServer.checkIns.Length; i++)
-        //    {
-
-        //    }
-        //}
     }
 }

@@ -52,7 +52,7 @@ namespace LuggageSortingPlant_V2._00
                         Array.Copy(MainServer.luggageBuffer, 0, tempLuggage, 0, 1);//Copy first index from luggagebuffer to the temp array
 
                         MainServer.luggageBuffer[0] = null;
-                        MainServer.outPut.PrintArrivedToTheAirport(tempLuggage[0]);
+                      //  MainServer.outPut.PrintArrivedToTheAirport(tempLuggage[0]);
                     }
                     else
                     {
@@ -100,7 +100,7 @@ namespace LuggageSortingPlant_V2._00
                                             };
                                             if ((luggageCount > 0) && (luggageCount < MainServer.checkInBuffers[i].Buffer.Length + 1))
                                             {
-                                                MainServer.outPut.PrintCheckInBufferCapacity(checkInNumber, luggageCount);//Printing to console
+                                               // MainServer.outPut.PrintCheckInBufferCapacity(checkInNumber, luggageCount);//Printing to console
                                                 tempLuggage[0] = null;
                                             }
                                             else
