@@ -88,7 +88,7 @@ namespace LuggageSortingPlant_V2._00
                             //{
                             Array.Copy(MainServer.gateBuffers[GateNumber].Buffer, 0, Buffer, luggageCounter, 1);//Copy first index from gate buffer to the temp array
                             luggageCounter++;
-                            MainServer.outPut.PrintGateCapacity(GateNumber, luggageCounter);
+                           // MainServer.outPut.PrintGateCapacity(GateNumber, luggageCounter);
                             MainServer.gateBuffers[GateNumber].Buffer[0] = null;
                             //};
                         };
@@ -132,7 +132,7 @@ namespace LuggageSortingPlant_V2._00
                         };
                         if (counter > 0)
                         {
-                            MainServer.outPut.PrintTakeOff(GateNumber, flightNumber, counter);
+                         //   MainServer.outPut.PrintTakeOff(GateNumber, flightNumber, counter);
 
                         }
 

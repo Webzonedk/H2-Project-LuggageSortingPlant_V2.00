@@ -117,7 +117,7 @@ namespace LuggageSortingPlant_V2._00
                 //If luggage is too late to the gate and the gate is closed and there is a plane in the flightplan with same destination, then redirict luggage to another gate for that destination
                 if (tempLuggage[0] != null)
                 {
-                    Monitor.Enter(MainServer.flightPlans);//Locking the thread
+                    // Monitor.Enter(MainServer.flightPlans);//Locking the thread
                     try
                     {
                         for (int i = 0; i < MainServer.flightPlans.Length; i++)
@@ -125,21 +125,22 @@ namespace LuggageSortingPlant_V2._00
                             if (destination == MainServer.flightPlans[i].Destination)
                             {
                                 gateNumber = MainServer.flightPlans[i].GateNumber;
+                                i = MainServer.flightPlans.Length;
                             };
                         };
 
                     }
                     finally
                     {
-                        Monitor.Pulse(MainServer.flightPlans);//Sending signal to LuggageWorker
-                        Monitor.Exit(MainServer.flightPlans);//Unlocking thread
+                        //Monitor.Pulse(MainServer.flightPlans);//Sending signal to LuggageWorker
+                        //Monitor.Exit(MainServer.flightPlans);//Unlocking thread
                     };
 
-                    Monitor.Enter(MainServer.gateBuffers[gateNumber]);//Locking the thread
                     if (gateNumber != -1 && MainServer.gateBuffers[gateNumber].Buffer[MainServer.gateBufferSize - 1] == null)
                     {
                         try
                         {
+                            Monitor.Enter(MainServer.gateBuffers[gateNumber]);//Locking the thread
                             Array.Copy(tempLuggage, 0, MainServer.gateBuffers[gateNumber].Buffer, MainServer.gateBufferSize - 1, 1);//Copy first index from tempLuggage to the last index in the luggage buffer array
                             MainServer.outPut.PrintSortedToGate(tempLuggage[0], gateNumber);
                             tempLuggage[0] = null;
@@ -152,24 +153,24 @@ namespace LuggageSortingPlant_V2._00
                     }
                     else
                     {
-                        Monitor.Enter(MainServer.sortingUnitBuffer);//Sending signal to LuggageWorker
                         try
                         {
+                            Monitor.Enter(MainServer.sortingUnitBuffer);//Sending signal to LuggageWorker
                             if (MainServer.sortingUnitBuffer[MainServer.sortBufferSize - 1] == null)
                             {
                                 Array.Copy(tempLuggage, 0, MainServer.sortingUnitBuffer, MainServer.sortBufferSize - 1, 1);//Copy first index from tempLuggage to the last index in the luggage buffer array
                                 MainServer.outPut.PrintLuggageReturnedToSortingBuffer(tempLuggage[0]);//Print htat the luggage has been added to the sorting queue for next flight to that destination
                                 tempLuggage[0] = null;
                             };
-                            int countLuggage = 0; ;
-                            for (int i = 0; i < MainServer.sortingUnitBuffer.Length; i++)
-                            {
-                                if (MainServer.sortingUnitBuffer[i] != null)
-                                {
-                                    countLuggage++;
-                                };
-                            };
-                            MainServer.outPut.PrintSortingBufferCapacity(countLuggage);
+                            //int countLuggage = 0; ;
+                            //for (int i = 0; i < MainServer.sortingUnitBuffer.Length; i++)
+                            //{
+                            //    if (MainServer.sortingUnitBuffer[i] != null)
+                            //    {
+                            //        countLuggage++;
+                            //    };
+                            //};
+                            //MainServer.outPut.PrintSortingBufferCapacity(countLuggage);
                         }
                         finally
                         {
@@ -178,8 +179,7 @@ namespace LuggageSortingPlant_V2._00
                         };
                     };
                 };
-                //int randomSleep = MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax);
-                //Thread.Sleep(randomSleep);
+                Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
             };
         }
         #endregion

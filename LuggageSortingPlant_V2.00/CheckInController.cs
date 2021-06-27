@@ -15,8 +15,8 @@ namespace LuggageSortingPlant_V2._00
     {
 
         public EventHandler openCloseCheckIns;
-        private int checkInNumber;
         private Thread checkInOpenCloseThread;
+        private int checkInNumber;
 
         public int CheckInNumber
         {
@@ -52,7 +52,7 @@ namespace LuggageSortingPlant_V2._00
                         bool status = MainServer.checkIns[CheckInNumber].Open;
                         openCloseCheckIns?.Invoke(this, new CheckInEvent(CheckInNumber, status));//Invoking the luggage and send it to the listener
                     }
-                    Thread.Sleep(200);
+                    Thread.Sleep(50);
                 }
                 finally
                 {

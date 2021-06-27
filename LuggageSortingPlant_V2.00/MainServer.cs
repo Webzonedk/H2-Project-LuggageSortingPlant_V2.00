@@ -20,8 +20,8 @@ namespace LuggageSortingPlant_V2._00
         public static int MaxLuggageBuffer = 200 * maxPendingFlights;
         public static int checkInBufferSize = 200;
         public static int sortBufferSize = 350 * maxPendingFlights;
-        public static int randomSleepMin = 25;
-        public static int randomSleepMax = 100;
+        public static int randomSleepMin = 50;
+        public static int randomSleepMax = 200;
         public static int gateBufferSize = 350;
         public static int logSize = 20000;
         public static int flightPlanMinInterval = 120;//secunds
@@ -149,8 +149,6 @@ namespace LuggageSortingPlant_V2._00
             CreateGates();//Creates the Gates
             CreateGateBuffers();//Creates the gate buffers
 
-
-            // Thread.Sleep(200);
 
 
             //Instantiates the classes

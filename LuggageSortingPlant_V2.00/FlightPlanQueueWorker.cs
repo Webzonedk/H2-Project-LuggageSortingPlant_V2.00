@@ -29,27 +29,27 @@ namespace LuggageSortingPlant_V2._00
         {
             while (true)
             {
-                try
+                if (MainServer.flightPlans[MainServer.maxPendingFlights-1] != null)
                 {
-
-
-                    for (int i = 0; i < MainServer.flightPlans.Length - 1; i++)
+                    try
                     {
-                        if (MainServer.flightPlans[i] == null)
+                        Monitor.Enter(MainServer.flightPlans);//Locking the thread
+                        for (int i = 0; i < MainServer.flightPlans.Length - 1; i++)
                         {
-                            Monitor.Enter(MainServer.flightPlans);//Locking the thread
-                            MainServer.flightPlans[i] = MainServer.flightPlans[i + 1];
-                            MainServer.flightPlans[i + 1] = null;
-                            Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
-                            Monitor.Exit(MainServer.flightPlans);//Release the lock
+                            if (MainServer.flightPlans[i] == null)
+                            {
+                                MainServer.flightPlans[i] = MainServer.flightPlans[i + 1];
+                                MainServer.flightPlans[i + 1] = null;
+                            }
                         }
-
+                    }
+                    finally
+                    {
+                        Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
+                        Monitor.Exit(MainServer.flightPlans);//Release the lock
                     }
                 }
-                finally
-                {
-
-                }
+                Thread.Sleep(50);
             }
         }
         #endregion

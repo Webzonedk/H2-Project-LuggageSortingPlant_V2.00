@@ -8,8 +8,8 @@ namespace LuggageSortingPlant_V2._00
 {
     class CheckInBufferEvent : EventArgs
     {
-        public int CheckInNumber { get; private set; }
-        public int Count { get;  set; }
+        public int CheckInNumber { get; set; }
+        public int Count { get; set; }
 
         public CheckInBufferEvent(int checkInNumber, int count)
         {
@@ -17,4 +17,5 @@ namespace LuggageSortingPlant_V2._00
             Count = count;
         }
     }
+
 }

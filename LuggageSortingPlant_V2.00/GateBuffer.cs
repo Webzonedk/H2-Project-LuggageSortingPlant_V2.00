@@ -52,30 +52,24 @@ namespace LuggageSortingPlant_V2._00
         {
             while (true)
             {
-
-                try
+                for (int i = 0; i < MainServer.gateBuffers[gateNumber].Buffer.Length - 1; i++)
                 {
-                    Monitor.Enter(MainServer.gateBuffers[gateNumber]);//Locking the thread
-
-                    for (int i = 0; i < MainServer.gateBuffers[gateNumber].Buffer.Length - 1; i++)
+                    if (MainServer.gateBuffers[gateNumber].Buffer[i] == null)
                     {
-                        if (MainServer.gateBuffers[gateNumber].Buffer[i] == null)
+                        try
                         {
+                            Monitor.Enter(MainServer.gateBuffers[gateNumber]);//Locking the thread
                             MainServer.gateBuffers[gateNumber].Buffer[i] = MainServer.gateBuffers[gateNumber].Buffer[i + 1];
                             MainServer.gateBuffers[gateNumber].Buffer[i + 1] = null;
                         }
+                        finally
+                        {
+                            Monitor.PulseAll(MainServer.gateBuffers[gateNumber]);//Sending signal to other thread
+                            Monitor.Exit(MainServer.gateBuffers[gateNumber]);//Release the lock
+                        }
                     }
-
                 }
-                finally
-                {
-                    Monitor.PulseAll(MainServer.gateBuffers[gateNumber]);//Sending signal to other thread
-                    Monitor.Exit(MainServer.gateBuffers[gateNumber]);//Release the lock
-                }
-
-
-
-
+                Thread.Sleep(50);
             }
         }
         #endregion

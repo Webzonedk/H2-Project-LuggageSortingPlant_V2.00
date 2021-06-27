@@ -33,13 +33,14 @@ namespace LuggageSortingPlant_V2._00
             {
                 int counter = CountLuggageInLuggageBuffer();
                 countLuggage?.Invoke(this, new LuggageEvent(counter));//Invoking the luggage and send it to the listener
+               Thread.Sleep(50);
             }
         }
 
 
         private int CountLuggageInLuggageBuffer()
         {
-            Monitor.Enter(MainServer.luggageBuffer);
+            // Monitor.Enter(MainServer.luggageBuffer);
             try
             {
                 int temp = 0;
@@ -51,12 +52,11 @@ namespace LuggageSortingPlant_V2._00
                     }
                 }
                 return temp;
-
             }
             finally
             {
-                Monitor.PulseAll(MainServer.luggageBuffer);
-                Monitor.Exit(MainServer.luggageBuffer);
+                //Monitor.PulseAll(MainServer.luggageBuffer);
+                //Monitor.Exit(MainServer.luggageBuffer);
             }
 
         }

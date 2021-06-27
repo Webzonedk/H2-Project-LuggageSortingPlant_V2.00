@@ -28,24 +28,26 @@ namespace LuggageSortingPlant_V2._00
         {
             while (true)
             {
-                    Monitor.Enter(MainServer.sortingUnitBuffer);//Locking the thread
-                try
-                {
 
-                    for (int i = 0; i < MainServer.sortingUnitBuffer.Length - 1; i++)//Loop through all boxes in the array
+                for (int i = 0; i < MainServer.sortingUnitBuffer.Length - 1; i++)//Loop through all boxes in the array
+                {
+                    if (MainServer.sortingUnitBuffer[i] == null)//If the buffer index 0 is empty
                     {
-                        if (MainServer.sortingUnitBuffer[i] == null)//If the buffer index 0 is empty
+                        try
                         {
+                            Monitor.Enter(MainServer.sortingUnitBuffer);//Locking the thread
                             MainServer.sortingUnitBuffer[i] = MainServer.sortingUnitBuffer[i + 1];//Move content of the index one down
                             MainServer.sortingUnitBuffer[i + 1] = null;//Setting the moved index to null
                         }
+                        finally
+                        {
+                            Monitor.PulseAll(MainServer.sortingUnitBuffer);//Sending signal to other thread
+                            Monitor.Exit(MainServer.sortingUnitBuffer);//Release the lock
+                        }
                     }
                 }
-                finally
-                {
-                    Monitor.PulseAll(MainServer.sortingUnitBuffer);//Sending signal to other thread
-                    Monitor.Exit(MainServer.sortingUnitBuffer);//Release the lock
-                }
+                Thread.Sleep(50);
+
             }
         }
         #endregion

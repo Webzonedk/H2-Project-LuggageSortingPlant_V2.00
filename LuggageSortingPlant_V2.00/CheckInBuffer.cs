@@ -50,8 +50,6 @@ namespace LuggageSortingPlant_V2._00
         {
             while (true)
             {
-
-
                 for (int i = 0; i < MainServer.checkInBuffers[CheckInNumber].Buffer.Length - 1; i++)
                 {
                     if (MainServer.checkInBuffers[CheckInNumber].Buffer[i] == null)
@@ -66,11 +64,10 @@ namespace LuggageSortingPlant_V2._00
                         {
                             Monitor.PulseAll(MainServer.checkInBuffers[CheckInNumber]);//Sending signal to other thread
                             Monitor.Exit(MainServer.checkInBuffers[CheckInNumber]);//Release the lock
-
                         }
                     }
                 }
-
+                Thread.Sleep(50);
             }
         }
         #endregion

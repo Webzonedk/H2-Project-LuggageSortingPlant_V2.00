@@ -45,7 +45,7 @@ namespace LuggageSortingPlant_V2._00
                         int count = CountLuggageInLuggageBuffer();
                         countBufferLuggage?.Invoke(this, new CheckInBufferEvent(CheckInNumber, count));//Invoking the luggage and send it to the listener
                     }
-                   // Thread.Sleep(100);
+                  Thread.Sleep(50);
                 }
                 finally
                 {

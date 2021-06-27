@@ -144,8 +144,8 @@ namespace LuggageSortingPlant_V2._00
                     Monitor.PulseAll(MainServer.sortingUnitBuffer);//Sending signal to other thread
                     Monitor.Exit(MainServer.sortingUnitBuffer);//Release the lock
                 };
-                //int randomSleep = MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax);
-                //Thread.Sleep(randomSleep);
+             
+                Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
 
             };
         }
