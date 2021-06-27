@@ -54,6 +54,7 @@ namespace LuggageSortingPlant_V2._00
         {
             DateTime departure = DateTime.Now;
             int luggageCounter = 0;
+            FlightPlan[] tempflight = new FlightPlan[1];
             while (true)
             {
                 Monitor.Enter(MainServer.flightPlans);//Locking the thread

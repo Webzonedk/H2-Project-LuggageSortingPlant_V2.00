@@ -58,7 +58,9 @@ namespace LuggageSortingPlant_V2._00
                         {
                             if (MainServer.flightPlans[i] != null)
                             {
-                                MainServer.tempFlightPlans[randomMax] = MainServer.flightPlans[i];//Adding the flightplans from the array to a temporary array
+                                Array.Copy(MainServer.flightPlans, i, MainServer.tempFlightPlans, randomMax, 1);//Copy first index from luggagebuffer to the temp array
+
+                                //  MainServer.tempFlightPlans[randomMax] = MainServer.flightPlans[i];//Adding the flightplans from the array to a temporary array
                                 randomMax++;
                             }
                         }

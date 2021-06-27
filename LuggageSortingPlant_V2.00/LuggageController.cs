@@ -15,9 +15,6 @@ namespace LuggageSortingPlant_V2._00
     class LuggageController
 
     {
-
-
-
         public EventHandler countLuggage;
         public Thread LuggageControllerThread { get; set; }
 

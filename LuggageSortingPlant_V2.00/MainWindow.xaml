@@ -85,8 +85,8 @@
         <!--Sorting Unit-->
         <Label x:Name="lbl_sortingHeader" Grid.Column="6" Grid.Row="5" Grid.ColumnSpan="3"  FontSize="20" FontWeight="SemiBold" Content="Sorting Unit " Margin="5,5,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
         <Image Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="3" Grid.RowSpan="2" Source="images/sortingUnit.jpg" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label x:Name="lbl_sortingQueueHeader" Grid.Column="6" Grid.Row="5" Grid.ColumnSpan="3"  FontSize="20" FontWeight="SemiBold" Content="Sorting Unit " Margin="5,5,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
-        <Label x:Name="lbl_sortingQueue" Grid.Column="6" Grid.Row="6" FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" />
+        <Label x:Name="lbl_sortingQueueHeader" Grid.Column="6" Grid.Row="8" Grid.ColumnSpan="3"  FontSize="20" FontWeight="SemiBold" Content="Luggage in sorting queue " Margin="5,5,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+        <Label x:Name="lbl_sortingQueue" Grid.Column="7" Grid.Row="8" FontSize="20" FontWeight="SemiBold" Content="0" Margin="5,5,5,5" HorizontalAlignment="Center" />
 
         <!--Queue to Gates-->
         <Label x:Name="lbl_gateQueueHeader" Grid.Column="9" Grid.Row="1"  FontSize="20" FontWeight="SemiBold" Content="Queues"  VerticalAlignment="Bottom" HorizontalAlignment="Center" />

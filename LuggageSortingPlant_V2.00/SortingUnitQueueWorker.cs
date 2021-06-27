@@ -28,7 +28,6 @@ namespace LuggageSortingPlant_V2._00
         {
             while (true)
             {
-
                 for (int i = 0; i < MainServer.sortingUnitBuffer.Length - 1; i++)//Loop through all boxes in the array
                 {
                     if (MainServer.sortingUnitBuffer[i] == null)//If the buffer index 0 is empty
@@ -46,8 +45,7 @@ namespace LuggageSortingPlant_V2._00
                         }
                     }
                 }
-                Thread.Sleep(50);
-
+               // Thread.Sleep(50);
             }
         }
         #endregion

@@ -31,6 +31,8 @@ namespace LuggageSortingPlant_V2._00
             StartLuggageController();
             CheckInBufferCounters();
             CheckInsOnAndOffColor();
+            StartLuggageInSortingUnitBufferController();
+            GateBufferCounters();
         }
 
 
@@ -45,7 +47,7 @@ namespace LuggageSortingPlant_V2._00
 
 
         //---------------------------------------------------------------------------
-        //Coiunting the amount of luggage in the luggageBuffer
+        //Counting the amount of luggage in the luggageBuffer
         //---------------------------------------------------------------------------
         private void StartLuggageController()
         {
@@ -78,7 +80,7 @@ namespace LuggageSortingPlant_V2._00
             for (int i = 0; i < MainServer.amountOfCheckIns; i++)
             {
                 CheckInBufferController checkInBufferController = new CheckInBufferController(i);
-                checkInBufferController.countBufferLuggage += CountLuggageInBuffers;
+                checkInBufferController.countCheckInBufferLuggage += CountLuggageInBuffers;
             };
         }
 
@@ -108,6 +110,18 @@ namespace LuggageSortingPlant_V2._00
                             break;
                         case 5:
                             lbl_checkInQueue5.Content = ((CheckInBufferEvent)e).Count.ToString();
+                            break;
+                        case 6:
+                            lbl_checkInQueue6.Content = ((CheckInBufferEvent)e).Count.ToString();
+                            break;
+                        case 7:
+                            lbl_checkInQueue7.Content = ((CheckInBufferEvent)e).Count.ToString();
+                            break;
+                        case 8:
+                            lbl_checkInQueue8.Content = ((CheckInBufferEvent)e).Count.ToString();
+                            break;
+                        case 9:
+                            lbl_checkInQueue9.Content = ((CheckInBufferEvent)e).Count.ToString();
                             break;
 
                     };
@@ -248,5 +262,76 @@ namespace LuggageSortingPlant_V2._00
 
 
 
+
+        //---------------------------------------------------------------------------
+        //Counting the amount of luggage in the sorting unit Buffer
+        //---------------------------------------------------------------------------
+        private void StartLuggageInSortingUnitBufferController()
+        {
+            SortingUnitController sortingUnitController = new SortingUnitController();
+            sortingUnitController.countLuggageInSortingUnitBuffer += CountLuggageInSortingUnitBuffer;
+        }
+
+
+        //Eventlistener to receive the current count of luggage in the hall.
+        public void CountLuggageInSortingUnitBuffer(object sender, EventArgs e)//Event Listener
+        {
+
+            //EventListener
+            if (e is SortingUnitEvent)
+            {
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    lbl_sortingQueue.Content = ((SortingUnitEvent)e).Count.ToString();
+                }));
+            }
+        }
+
+
+
+
+        //---------------------------------------------------------------------------
+        //Controlling the counters on the gatebuffers.
+        //---------------------------------------------------------------------------
+        private void GateBufferCounters()
+        {
+            for (int i = 0; i < MainServer.amountOfGates; i++)
+            {
+                GateBufferController gateBufferController = new GateBufferController(i);
+                gateBufferController.countGateBufferLuggage += CountLuggageInGateBuffers;
+            };
+        }
+
+
+        public void CountLuggageInGateBuffers(object sender, EventArgs e)//Event Listener
+        {
+            if (e is GateBufferEvent)
+            {
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    switch (((GateBufferEvent)e).GateNumber)//adding the count amount to the view through the event listener
+                    {
+                        case 0:
+                            lbl_gateQueue0.Content = ((GateBufferEvent)e).Count.ToString();
+                            break;
+                        case 1:
+                            lbl_gateQueue1.Content = ((GateBufferEvent)e).Count.ToString();
+                            break;
+                        case 2:
+                            lbl_gateQueue2.Content = ((GateBufferEvent)e).Count.ToString();
+                            break;
+                        case 3:
+                            lbl_gateQueue3.Content = ((GateBufferEvent)e).Count.ToString();
+                            break;
+                        case 4:
+                            lbl_gateQueue4.Content = ((GateBufferEvent)e).Count.ToString();
+                            break;
+                        case 5:
+                            lbl_gateQueue5.Content = ((GateBufferEvent)e).Count.ToString();
+                            break;
+                    };
+                }));
+            };
+        }
     }
 }
