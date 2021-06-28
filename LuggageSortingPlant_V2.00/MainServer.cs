@@ -23,13 +23,13 @@ namespace LuggageSortingPlant_V2._00
         public static int randomSleepMin = 5;
         public static int randomSleepMax = 10;
         public static int gateBufferSize = 400;
-        public static int logSize = 20000;
-        public static int flightPlanMinInterval = 120;//secunds
-        public static int flightPlanMaxInterval = 180;//secunds
-        public static int checkInOpenBeforeDeparture = 180;//secunds
-        public static int checkInCloseBeforeDeparture = 60;//secunds
-        public static int gateOpenBeforeDeparture = 180;//secunds
-        public static int gateCloseBeforeDeparture = 10;//secunds
+        public static int logSize = 100;
+        public static int flightPlanMinInterval = 30;//secunds
+        public static int flightPlanMaxInterval = 60;//secunds
+        public static int checkInOpenBeforeDeparture = 60;//secunds
+        public static int checkInCloseBeforeDeparture = 30;//secunds
+        public static int gateOpenBeforeDeparture = 50;//secunds
+        public static int gateCloseBeforeDeparture = 5;//secunds
 
         //Global attributes for use in the Threads
         public static Random random = new Random();
@@ -42,7 +42,7 @@ namespace LuggageSortingPlant_V2._00
         public static int[] numberOfSeats = new int[5] { 150, 200, 250, 300, 350 };
 
         public static FlightPlan[] flightPlans = new FlightPlan[maxPendingFlights];
-        public static FlightPlan[] flightPlanLog = new FlightPlan[100];
+        public static FlightPlan[] flightPlanLog = new FlightPlan[logSize];
 
         public static Luggage[] luggageBuffer = new Luggage[MaxLuggageBuffer];
 

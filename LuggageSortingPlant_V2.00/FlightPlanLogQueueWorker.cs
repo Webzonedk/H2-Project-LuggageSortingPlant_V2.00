@@ -45,8 +45,9 @@ namespace LuggageSortingPlant_V2._00
                             Monitor.Wait(MainServer.flightPlanLog);
                         }
                     }
-                    int counter = 0;
+
                     //Counting how many logs there are in the array
+                    int counter = 0;
                     for (int i = 0; i < MainServer.flightPlanLog.Length; i++)
                     {
                         if (MainServer.flightPlanLog[i] != null)
@@ -54,11 +55,11 @@ namespace LuggageSortingPlant_V2._00
                             counter++;
                         }
                     }
-                    if (counter >= MainServer.logSize - 1000)// If there is more than 90 logs, then delete the 20 oldest logs
+                    if (counter >= MainServer.logSize - 50)// If there is more than 90 logs, then delete the 20 oldest logs
                     {
-                        for (int i = 0; i < 2000; i++)
+                        for (int i = 0; i < 20; i++)
                         {
-                            MainServer.flightPlanLog[0 + i] = null;
+                            MainServer.flightPlanLog[i] = null;
                         }
                     }
                 }

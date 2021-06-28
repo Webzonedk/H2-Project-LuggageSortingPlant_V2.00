@@ -16,6 +16,7 @@ namespace LuggageSortingPlant_V2._00
         private int seats;
         private int gateNumber;
         private DateTime departureTime;
+        private int ticketsSold;
 
 
 
@@ -53,6 +54,11 @@ namespace LuggageSortingPlant_V2._00
             set { departureTime = value; }
         }
 
+        public int TicketsSold
+        {
+            get { return ticketsSold; }
+            set { ticketsSold = value; }
+        }
 
 
 

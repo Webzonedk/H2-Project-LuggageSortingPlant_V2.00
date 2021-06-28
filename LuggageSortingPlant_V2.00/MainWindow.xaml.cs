@@ -68,7 +68,7 @@ namespace LuggageSortingPlant_V2._00
                 {
                     lbl_luggageInHall.Content = ((LuggageEvent)e).Count.ToString();
                 }));
-            }
+            };
         }
 
 
@@ -143,7 +143,7 @@ namespace LuggageSortingPlant_V2._00
             {
                 CheckInController checkInController = new CheckInController(i);
                 checkInController.openCloseCheckIns += ChangeColor;
-            }
+            };
         }
 
         //Event Listener method
@@ -285,7 +285,7 @@ namespace LuggageSortingPlant_V2._00
                 {
                     lbl_sortingQueue.Content = ((SortingUnitEvent)e).Count.ToString();
                 }));
-            }
+            };
         }
 
 
@@ -342,11 +342,11 @@ namespace LuggageSortingPlant_V2._00
         //---------------------------------------------------------------------------
         private void GatesOnAndOffColor()
         {
-            for (int i = 0; i < MainServer.amountOfCheckIns; i++)
+            for (int i = 0; i < MainServer.amountOfGates; i++)
             {
                 GateController gateController = new GateController(i);
                 gateController.openCloseGates += ChangeGateColor;
-            }
+            };
         }
 
         //Event Listener method
@@ -363,67 +363,78 @@ namespace LuggageSortingPlant_V2._00
                             if (((GateEvent)e).Status)
                             {
                                 lbl_gate0.Background = new SolidColorBrush(Colors.Green);
+                                lbl_gate0.Content = ((GateEvent)e).Count.ToString();
                             }
                             else
                             {
                                 lbl_gate0.Background = new SolidColorBrush(Colors.Red);
+                                lbl_gate0.Content = ((GateEvent)e).Count.ToString();
+
                             }
                             break;
                         case 1:
                             if (((GateEvent)e).Status)
                             {
                                 lbl_gate1.Background = new SolidColorBrush(Colors.Green);
+                                lbl_gate1.Content = ((GateEvent)e).Count.ToString();
                             }
                             else
                             {
                                 lbl_gate1.Background = new SolidColorBrush(Colors.Red);
+                                lbl_gate1.Content = ((GateEvent)e).Count.ToString();
                             }
                             break;
                         case 2:
                             if (((GateEvent)e).Status)
                             {
                                 lbl_gate2.Background = new SolidColorBrush(Colors.Green);
+                                lbl_gate2.Content = ((GateEvent)e).Count.ToString();
                             }
                             else
                             {
                                 lbl_gate2.Background = new SolidColorBrush(Colors.Red);
+                                lbl_gate2.Content = ((GateEvent)e).Count.ToString();
                             }
                             break;
                         case 3:
                             if (((GateEvent)e).Status)
                             {
                                 lbl_gate3.Background = new SolidColorBrush(Colors.Green);
+                                lbl_gate3.Content = ((GateEvent)e).Count.ToString();
                             }
                             else
                             {
                                 lbl_gate3.Background = new SolidColorBrush(Colors.Red);
+                                lbl_gate3.Content = ((GateEvent)e).Count.ToString();
                             }
                             break;
                         case 4:
                             if (((GateEvent)e).Status)
                             {
                                 lbl_gate4.Background = new SolidColorBrush(Colors.Green);
+                                lbl_gate4.Content = ((GateEvent)e).Count.ToString();
                             }
                             else
                             {
                                 lbl_gate4.Background = new SolidColorBrush(Colors.Red);
+                                lbl_gate4.Content = ((GateEvent)e).Count.ToString();
                             }
                             break;
                         case 5:
                             if (((GateEvent)e).Status)
                             {
                                 lbl_gate5.Background = new SolidColorBrush(Colors.Green);
+                                lbl_gate5.Content = ((GateEvent)e).Count.ToString();
                             }
                             else
                             {
                                 lbl_gate5.Background = new SolidColorBrush(Colors.Red);
+                                lbl_gate5.Content = ((GateEvent)e).Count.ToString();
                             }
                             break;
-
                     };
                 }));
             };
         }
-
     }
 }

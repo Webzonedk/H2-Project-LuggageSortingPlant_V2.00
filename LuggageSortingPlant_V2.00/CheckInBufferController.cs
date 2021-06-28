@@ -9,7 +9,7 @@ namespace LuggageSortingPlant_V2._00
     class CheckInBufferController
     {
         public EventHandler countCheckInBufferLuggage;
-        private Thread checkInLuggageCounterThread;
+        //private Thread checkInLuggageCounterThread;
         private int checkInNumber;
 
         public int CheckInNumber
@@ -19,11 +19,11 @@ namespace LuggageSortingPlant_V2._00
         }
 
 
-        public Thread CheckInLuggageCounterThread
-        {
-            get { return checkInLuggageCounterThread; }
-            set { checkInLuggageCounterThread = value; }
-        }
+        //public Thread CheckInLuggageCounterThread
+        //{
+        //    get { return checkInLuggageCounterThread; }
+        //    set { checkInLuggageCounterThread = value; }
+        //}
 
 
 
@@ -45,10 +45,10 @@ namespace LuggageSortingPlant_V2._00
                         int count = CountLuggageInLuggageBuffer();
                         countCheckInBufferLuggage?.Invoke(this, new CheckInBufferEvent(CheckInNumber, count));//Invoking the luggage and send it to the listener
                     }
-                  Thread.Sleep(50);
                 }
                 finally
                 {
+                  Thread.Sleep(1);
                 }
             }
         }

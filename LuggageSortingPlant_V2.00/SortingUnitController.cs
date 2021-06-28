@@ -10,7 +10,7 @@ namespace LuggageSortingPlant_V2._00
     {
 
         public EventHandler countLuggageInSortingUnitBuffer;
-        public Thread SortingControllerThread { get; set; }
+        //public Thread SortingControllerThread { get; set; }
 
         public SortingUnitController()
         {

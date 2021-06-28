@@ -10,11 +10,13 @@ namespace LuggageSortingPlant_V2._00
     {
         public int GateNumber { get; private set; }
         public bool Status { get; private set; }
+        public int Count { get; private set; }
 
-        public GateEvent(int gateNumber, bool status)
+        public GateEvent(int gateNumber, bool status, int count)
         {
             GateNumber = gateNumber;
             Status = status;
+            Count = count;
         }
     }
 }

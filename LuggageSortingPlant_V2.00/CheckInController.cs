@@ -14,7 +14,7 @@ namespace LuggageSortingPlant_V2._00
     {
 
         public EventHandler openCloseCheckIns;
-        private Thread checkInOpenCloseThread;
+      //  private Thread checkInOpenCloseThread;
         private int checkInNumber;
 
         public int CheckInNumber
@@ -24,11 +24,11 @@ namespace LuggageSortingPlant_V2._00
         }
 
 
-        public Thread CheckInOpenCloseThread
-        {
-            get { return checkInOpenCloseThread; }
-            set { checkInOpenCloseThread = value; }
-        }
+        //public Thread CheckInOpenCloseThread
+        //{
+        //    get { return checkInOpenCloseThread; }
+        //    set { checkInOpenCloseThread = value; }
+        //}
 
 
 
@@ -46,19 +46,16 @@ namespace LuggageSortingPlant_V2._00
                 try
                 {
                     if (MainServer.checkIns[CheckInNumber] != null)
-                   //     Monitor.Enter(MainServer.checkIns[CheckInNumber]);
                     {
                         bool status = MainServer.checkIns[CheckInNumber].Open;
                         openCloseCheckIns?.Invoke(this, new CheckInEvent(CheckInNumber, status));//Invoking the luggage and send it to the listener
-                    }
-                    Thread.Sleep(50);
+                    };
                 }
                 finally
                 {
-                    //Monitor.PulseAll(MainServer.checkIns[CheckInNumber]);
-                    //Monitor.Exit(MainServer.checkIns[CheckInNumber]);
-                }
-            }
+                };
+                Thread.Sleep(1);
+            };
         }
     }
 }

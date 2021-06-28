@@ -151,7 +151,8 @@ namespace LuggageSortingPlant_V2._00
                         Monitor.Exit(MainServer.luggageBuffer);//Unlocking thread
                     };
                 };
-                Thread.Sleep(1);
+                Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
+                //Thread.Sleep(1);
             };
         }
         #endregion

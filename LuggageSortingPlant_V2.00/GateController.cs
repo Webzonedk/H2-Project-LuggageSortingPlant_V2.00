@@ -42,16 +42,37 @@ namespace LuggageSortingPlant_V2._00
                 {
                     if (MainServer.gates[GateNumber] != null)
                     {
+                        int counter = CountLuggageInGate();
                         bool status = MainServer.gates[GateNumber].Open;
-                        openCloseGates?.Invoke(this, new GateEvent(GateNumber, status));//Invoking the luggage and send it to the listener
-                    }
-                    Thread.Sleep(50);
+                        openCloseGates?.Invoke(this, new GateEvent(GateNumber, status, counter));//Invoking the luggage and send it to the listener
+                    };
                 }
                 finally
                 {
 
-                }
+                };
+                Thread.Sleep(1);
+            };
+        }
+
+        private int CountLuggageInGate()
+        {
+            try
+            {
+                int count = 0;
+                for (int i = 0; i < MainServer.gates[GateNumber].Buffer.Length; i++)
+                {
+                    if (MainServer.gates[GateNumber].Buffer[i] != null)
+                    {
+                        count++;
+                    };
+                };
+                return count;
             }
+            finally
+            {
+            };
+
         }
     }
 }

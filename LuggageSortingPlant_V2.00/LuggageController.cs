@@ -16,7 +16,7 @@ namespace LuggageSortingPlant_V2._00
 
     {
         public EventHandler countLuggage;
-        public Thread LuggageControllerThread { get; set; }
+       // public Thread LuggageControllerThread { get; set; }
 
         public LuggageController()
         {
@@ -28,16 +28,21 @@ namespace LuggageSortingPlant_V2._00
         {
             while (true)
             {
-                int counter = CountLuggageInLuggageBuffer();
-                countLuggage?.Invoke(this, new LuggageEvent(counter));//Invoking the luggage and send it to the listener
-               Thread.Sleep(50);
-            }
+                try
+                {
+                    int counter = CountLuggageInLuggageBuffer();
+                    countLuggage?.Invoke(this, new LuggageEvent(counter));//Invoking the luggage and send it to the listener
+                }
+                finally
+                {
+                    Thread.Sleep(1);
+                };
+            };
         }
 
 
         private int CountLuggageInLuggageBuffer()
         {
-            // Monitor.Enter(MainServer.luggageBuffer);
             try
             {
                 int temp = 0;
@@ -46,15 +51,13 @@ namespace LuggageSortingPlant_V2._00
                     if (MainServer.luggageBuffer[i] != null)
                     {
                         temp++;
-                    }
-                }
+                    };
+                };
                 return temp;
             }
             finally
             {
-                //Monitor.PulseAll(MainServer.luggageBuffer);
-                //Monitor.Exit(MainServer.luggageBuffer);
-            }
+            };
 
         }
     }

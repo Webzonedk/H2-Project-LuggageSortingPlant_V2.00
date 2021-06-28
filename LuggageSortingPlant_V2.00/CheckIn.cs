@@ -57,9 +57,8 @@ namespace LuggageSortingPlant_V2._00
             {
 
 
-                DateTime departure;
+               // DateTime departure;
                     Monitor.Enter(MainServer.checkInBuffers[CheckInNumber]);//Locking the thread
-              //      Monitor.Enter(MainServer.flightPlans);//Locking the thread
                 try
                 {
 
@@ -70,12 +69,12 @@ namespace LuggageSortingPlant_V2._00
                         {
                             if (MainServer.flightPlans[i] !=null && MainServer.flightPlans[i].FlightNumber == MainServer.checkInBuffers[CheckInNumber].Buffer[0].FlightNumber)
                             {
-                                departure = MainServer.flightPlans[i].DepartureTime;//getting the depaturtime to use to open checkin
-                                if (((departure - DateTime.Now).TotalSeconds <= MainServer.checkInOpenBeforeDeparture) && ((departure - DateTime.Now).TotalSeconds >= MainServer.checkInCloseBeforeDeparture))
+                               // departure = MainServer.flightPlans[i].DepartureTime;//getting the depaturtime to use to open checkin
+                                if (((MainServer.flightPlans[i].DepartureTime - DateTime.Now).TotalSeconds <= MainServer.checkInOpenBeforeDeparture) && ((MainServer.flightPlans[i].DepartureTime - DateTime.Now).TotalSeconds >= MainServer.checkInCloseBeforeDeparture))
                                 {
                                     Open = true;
                                 };
-                                if ((departure - DateTime.Now).TotalSeconds <= MainServer.checkInCloseBeforeDeparture)
+                                if ((MainServer.flightPlans[i].DepartureTime - DateTime.Now).TotalSeconds <= MainServer.checkInCloseBeforeDeparture)
                                 {
                                     Open = false;
                                 };
@@ -92,21 +91,18 @@ namespace LuggageSortingPlant_V2._00
                             {
                                 Array.Copy(MainServer.checkInBuffers[CheckInNumber].Buffer, 0, tempLuggage, 0, 1);//Copy first index from checkIn buffer to the temp array
                                 tempLuggage[0].CheckInTimeStamp = DateTime.Now;
-                                MainServer.outPut.PrintCheckInArrival(tempLuggage[0]);
+                               // MainServer.outPut.PrintCheckInArrival(tempLuggage[0]);
                                 MainServer.checkInBuffers[CheckInNumber].Buffer[0] = null;
                             };
                         };
                     }
                     else
                     {
-                 //       Monitor.Wait(MainServer.flightPlans);//Locking the thread
                         Monitor.Wait(MainServer.checkInBuffers[CheckInNumber]);//Locking the thread
                     };
                 }
                 finally
                 {
-             //       Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
-             //       Monitor.Exit(MainServer.flightPlans);//Release the lock
                     Monitor.PulseAll(MainServer.checkInBuffers[CheckInNumber]);//Sending signal to other thread
                     Monitor.Exit(MainServer.checkInBuffers[CheckInNumber]);//Release the lock
                 };
@@ -123,16 +119,16 @@ namespace LuggageSortingPlant_V2._00
                     {
                         Array.Copy(tempLuggage, 0, MainServer.sortingUnitBuffer, MainServer.sortBufferSize - 1, 1);//Copy first index from checkIn buffer to the temp array
                         tempLuggage[0] = null;
-                        int countLuggage = 0;
+                        //int countLuggage = 0;
 
-                        for (int i = 0; i < MainServer.sortingUnitBuffer.Length; i++)
-                        {
-                            if (MainServer.sortingUnitBuffer[i] != null)
-                            {
-                                countLuggage++;
-                            };
-                        };
-                        MainServer.outPut.PrintSortingBufferCapacity(countLuggage);
+                        //for (int i = 0; i < MainServer.sortingUnitBuffer.Length; i++)
+                        //{
+                        //    if (MainServer.sortingUnitBuffer[i] != null)
+                        //    {
+                        //        countLuggage++;
+                        //    };
+                        //};
+                       // MainServer.outPut.PrintSortingBufferCapacity(countLuggage);
                         //}
                         //else
                         //{
@@ -144,9 +140,7 @@ namespace LuggageSortingPlant_V2._00
                     Monitor.PulseAll(MainServer.sortingUnitBuffer);//Sending signal to other thread
                     Monitor.Exit(MainServer.sortingUnitBuffer);//Release the lock
                 };
-             
                 Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
-
             };
         }
         #endregion
