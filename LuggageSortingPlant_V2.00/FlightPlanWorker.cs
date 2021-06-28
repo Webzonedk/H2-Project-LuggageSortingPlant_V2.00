@@ -41,34 +41,38 @@ namespace LuggageSortingPlant_V2._00
         //Adding flights if the flightbuffer is not full
         public void AddFlightToFlightPlan()
         {
+            FlightPlan[] tempFlightPlan = new FlightPlan[1];
+
             int flightNumberCounter = 0;
             while (true)
             {
 
                 if (MainServer.flightPlans[MainServer.maxPendingFlights - 1] == null)
                 {
+                    FlightPlan tempFlightObject = new FlightPlan();
                     int destinationIndex = MainServer.random.Next(0, MainServer.destinations.Length);
                     int seats = MainServer.random.Next(0, MainServer.numberOfSeats.Length);
-                    FlightPlan flightPlan = new FlightPlan();
-                    flightPlan.FlightNumber = flightNumberCounter;
+                    tempFlightObject.FlightNumber = flightNumberCounter;
                     flightNumberCounter++;
-                    flightPlan.Destination = MainServer.destinations[destinationIndex];
-                    flightPlan.Seats = MainServer.numberOfSeats[seats];
-                    flightPlan.GateNumber = MainServer.random.Next(0, MainServer.amountOfGates);
+                    tempFlightObject.Destination = MainServer.destinations[destinationIndex];
+                    tempFlightObject.Seats = MainServer.numberOfSeats[seats];
+                    tempFlightObject.GateNumber = MainServer.random.Next(0, MainServer.amountOfGates);
 
                     if (MainServer.flightPlans[MainServer.maxPendingFlights - 2] == null)
                     {
-                        flightPlan.DepartureTime = DateTime.Now.AddSeconds(MainServer.random.Next(MainServer.flightPlanMinInterval, MainServer.flightPlanMaxInterval));
+                        tempFlightObject.DepartureTime = DateTime.Now.AddSeconds(MainServer.random.Next(MainServer.flightPlanMinInterval, MainServer.flightPlanMaxInterval));
                     }
                     else
                     {
-                        flightPlan.DepartureTime = MainServer.flightPlans[MainServer.maxPendingFlights - 2].DepartureTime.AddSeconds(MainServer.random.Next(MainServer.flightPlanMinInterval, MainServer.flightPlanMaxInterval));
+                        tempFlightObject.DepartureTime = MainServer.flightPlans[MainServer.maxPendingFlights - 2].DepartureTime.AddSeconds(MainServer.random.Next(MainServer.flightPlanMinInterval, MainServer.flightPlanMaxInterval));
                     }
+                    tempFlightPlan[0] = tempFlightObject;
+                    Monitor.Enter(MainServer.flightPlans);//Locking the thread
                     try
                     {
-                        Monitor.Enter(MainServer.flightPlans);//Locking the thread
-                        MainServer.flightPlans[MainServer.maxPendingFlights - 1] = flightPlan;
-                        MainServer.outPut.PrintFlightPlan(MainServer.maxPendingFlights - 1);//Send parameter with the method
+                        Array.Copy(tempFlightPlan, 0, MainServer.flightPlans, MainServer.maxPendingFlights - 1, 1);//Copy first index from tempLuggage to the last index in the luggage buffer array
+                        tempFlightPlan[0] = null;
+                        //  MainServer.outPut.PrintFlightPlan(MainServer.maxPendingFlights - 1);//Send parameter with the method
                     }
                     finally
                     {

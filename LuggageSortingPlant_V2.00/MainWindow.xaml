@@ -99,12 +99,12 @@
 
         <!--Gate counters-->
         <Label x:Name="gateHeader" Grid.Column="10" Grid.Row="1"  FontSize="20" FontWeight="SemiBold" Content="Gates" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
-        <Label x:Name="lbl_gate0" Grid.Column="10" Grid.Row="4"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
-        <Label x:Name="lbl_gate1" Grid.Column="10" Grid.Row="5"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
-        <Label x:Name="lbl_gate2" Grid.Column="10" Grid.Row="6"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
-        <Label x:Name="lbl_gate3" Grid.Column="10" Grid.Row="7"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
-        <Label x:Name="lbl_gate4" Grid.Column="10" Grid.Row="8"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
-        <Label x:Name="lbl_gate5" Grid.Column="10" Grid.Row="9"  FontSize="20" FontWeight="SemiBold" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_gate0" Grid.Column="10" Grid.Row="4"  FontSize="20" FontWeight="SemiBold" Content="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_gate1" Grid.Column="10" Grid.Row="5"  FontSize="20" FontWeight="SemiBold" Content="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_gate2" Grid.Column="10" Grid.Row="6"  FontSize="20" FontWeight="SemiBold" Content="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_gate3" Grid.Column="10" Grid.Row="7"  FontSize="20" FontWeight="SemiBold" Content="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_gate4" Grid.Column="10" Grid.Row="8"  FontSize="20" FontWeight="SemiBold" Content="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
+        <Label x:Name="lbl_gate5" Grid.Column="10" Grid.Row="9"  FontSize="20" FontWeight="SemiBold" Content="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" />
 
 
         <!--AirPlanes-->

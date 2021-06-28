@@ -33,6 +33,7 @@ namespace LuggageSortingPlant_V2._00
             CheckInsOnAndOffColor();
             StartLuggageInSortingUnitBufferController();
             GateBufferCounters();
+            GatesOnAndOffColor();
         }
 
 
@@ -333,5 +334,96 @@ namespace LuggageSortingPlant_V2._00
                 }));
             };
         }
+
+
+
+        //---------------------------------------------------------------------------
+        //Controlling the colors on the gates depending if they are open or closed
+        //---------------------------------------------------------------------------
+        private void GatesOnAndOffColor()
+        {
+            for (int i = 0; i < MainServer.amountOfCheckIns; i++)
+            {
+                GateController gateController = new GateController(i);
+                gateController.openCloseGates += ChangeGateColor;
+            }
+        }
+
+        //Event Listener method
+        public void ChangeGateColor(object sender, EventArgs e)//Event Listener
+        {
+
+            if (e is GateEvent)
+            {
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    switch (((GateEvent)e).GateNumber)//Setting status depending on the checkin number
+                    {
+                        case 0:
+                            if (((GateEvent)e).Status)
+                            {
+                                lbl_gate0.Background = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+                                lbl_gate0.Background = new SolidColorBrush(Colors.Red);
+                            }
+                            break;
+                        case 1:
+                            if (((GateEvent)e).Status)
+                            {
+                                lbl_gate1.Background = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+                                lbl_gate1.Background = new SolidColorBrush(Colors.Red);
+                            }
+                            break;
+                        case 2:
+                            if (((GateEvent)e).Status)
+                            {
+                                lbl_gate2.Background = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+                                lbl_gate2.Background = new SolidColorBrush(Colors.Red);
+                            }
+                            break;
+                        case 3:
+                            if (((GateEvent)e).Status)
+                            {
+                                lbl_gate3.Background = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+                                lbl_gate3.Background = new SolidColorBrush(Colors.Red);
+                            }
+                            break;
+                        case 4:
+                            if (((GateEvent)e).Status)
+                            {
+                                lbl_gate4.Background = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+                                lbl_gate4.Background = new SolidColorBrush(Colors.Red);
+                            }
+                            break;
+                        case 5:
+                            if (((GateEvent)e).Status)
+                            {
+                                lbl_gate5.Background = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+                                lbl_gate5.Background = new SolidColorBrush(Colors.Red);
+                            }
+                            break;
+
+                    };
+                }));
+            };
+        }
+
     }
 }

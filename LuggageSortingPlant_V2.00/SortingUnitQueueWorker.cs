@@ -28,24 +28,29 @@ namespace LuggageSortingPlant_V2._00
         {
             while (true)
             {
-                for (int i = 0; i < MainServer.sortingUnitBuffer.Length - 1; i++)//Loop through all boxes in the array
+                //if (MainServer.sortingUnitBuffer[MainServer.sortingUnitBuffer.Length - 1] !=null)
+                //{
+
+                    Monitor.Enter(MainServer.sortingUnitBuffer);//Locking the thread
+                try
                 {
-                    if (MainServer.sortingUnitBuffer[i] == null)//If the buffer index 0 is empty
+                    for (int i = 0; i < MainServer.sortingUnitBuffer.Length - 1; i++)
                     {
-                        try
+                        if (MainServer.sortingUnitBuffer[i] == null)
                         {
-                            Monitor.Enter(MainServer.sortingUnitBuffer);//Locking the thread
-                            MainServer.sortingUnitBuffer[i] = MainServer.sortingUnitBuffer[i + 1];//Move content of the index one down
-                            MainServer.sortingUnitBuffer[i + 1] = null;//Setting the moved index to null
-                        }
-                        finally
-                        {
-                            Monitor.PulseAll(MainServer.sortingUnitBuffer);//Sending signal to other thread
-                            Monitor.Exit(MainServer.sortingUnitBuffer);//Release the lock
+                            MainServer.sortingUnitBuffer[i] = MainServer.sortingUnitBuffer[i + 1];
+                            MainServer.sortingUnitBuffer[i + 1] = null;
                         }
                     }
                 }
-               // Thread.Sleep(50);
+                finally
+                {
+                    Monitor.PulseAll(MainServer.sortingUnitBuffer);//Sending signal to other thread
+                    Monitor.Exit(MainServer.sortingUnitBuffer);//Release the lock
+
+                }
+                //}
+                Thread.Sleep(1);
             }
         }
         #endregion

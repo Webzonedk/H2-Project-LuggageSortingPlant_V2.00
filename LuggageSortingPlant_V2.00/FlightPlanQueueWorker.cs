@@ -29,11 +29,11 @@ namespace LuggageSortingPlant_V2._00
         {
             while (true)
             {
-                if (MainServer.flightPlans[MainServer.maxPendingFlights-1] != null)
+                if (MainServer.flightPlans[MainServer.maxPendingFlights - 1] != null && MainServer.flightPlans[0] == null)
                 {
+                    Monitor.Enter(MainServer.flightPlans);//Locking the thread
                     try
                     {
-                        Monitor.Enter(MainServer.flightPlans);//Locking the thread
                         for (int i = 0; i < MainServer.flightPlans.Length - 1; i++)
                         {
                             if (MainServer.flightPlans[i] == null)
@@ -49,7 +49,7 @@ namespace LuggageSortingPlant_V2._00
                         Monitor.Exit(MainServer.flightPlans);//Release the lock
                     }
                 }
-                Thread.Sleep(50);
+                Thread.Sleep(1);
             }
         }
         #endregion

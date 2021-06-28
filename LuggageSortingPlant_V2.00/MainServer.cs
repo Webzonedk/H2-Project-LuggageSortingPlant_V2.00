@@ -20,9 +20,9 @@ namespace LuggageSortingPlant_V2._00
         public static int MaxLuggageBuffer = 200 * maxPendingFlights;
         public static int checkInBufferSize = 200;
         public static int sortBufferSize = 350 * maxPendingFlights;
-        public static int randomSleepMin = 50;
-        public static int randomSleepMax = 200;
-        public static int gateBufferSize = 350;
+        public static int randomSleepMin = 5;
+        public static int randomSleepMax = 10;
+        public static int gateBufferSize = 400;
         public static int logSize = 20000;
         public static int flightPlanMinInterval = 120;//secunds
         public static int flightPlanMaxInterval = 180;//secunds
@@ -42,18 +42,14 @@ namespace LuggageSortingPlant_V2._00
         public static int[] numberOfSeats = new int[5] { 150, 200, 250, 300, 350 };
 
         public static FlightPlan[] flightPlans = new FlightPlan[maxPendingFlights];
-        //public static List<FlightPlan> tempFlightPlan = new List<FlightPlan>();
-        public static FlightPlan[] tempFlightPlans = new FlightPlan[maxPendingFlights];
         public static FlightPlan[] flightPlanLog = new FlightPlan[100];
 
         public static Luggage[] luggageBuffer = new Luggage[MaxLuggageBuffer];
-        //  public static Luggage[] tempLuggage = new Luggage[1]; //To have an object to keep temp luggage in the mainentrance
 
         public static CheckInBuffer[] checkInBuffers = new CheckInBuffer[amountOfCheckIns];
         public static Thread[] checkInBufferWorkers = new Thread[amountOfCheckIns];
         public static CheckIn[] checkIns = new CheckIn[amountOfCheckIns];
         public static Thread[] checkInWorkers = new Thread[amountOfCheckIns];
-
 
         public static Luggage[] sortingUnitBuffer = new Luggage[sortBufferSize];
 
@@ -68,19 +64,15 @@ namespace LuggageSortingPlant_V2._00
 
         //Instantiating Classes
         public static OutPut outPut = new OutPut();//This class is only for printing in console.
+
         #region Fields
-        private string name;
         private DateTime currentTime;
         #endregion
 
 
 
         #region Properties
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+
         public DateTime CurrentTime
         {
             get { return currentTime; }
@@ -139,10 +131,7 @@ namespace LuggageSortingPlant_V2._00
 
         public void RunSimulation()
         {
-
-            Debug.WriteLine("Now running");
-            CurrentTime = DateTime.Now;//Setting the current time
-                                       // CheckIn checkIn = new();//Initializing CheckIn 
+           // CurrentTime = DateTime.Now;//Setting the current time
 
             CreateCheckIns();//Run the CreateCheckIns method
             CreateCheckInBuffers();
@@ -256,10 +245,10 @@ namespace LuggageSortingPlant_V2._00
             }
 
 
-            //foreach (Thread worker in gateWorkers)
-            //{
-            //    worker.Start();
-            //}
+            foreach (Thread worker in gateWorkers)
+            {
+                worker.Start();
+            }
 
 
             //-------------------------------------------------------------

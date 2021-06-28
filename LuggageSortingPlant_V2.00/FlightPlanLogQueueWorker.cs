@@ -28,10 +28,10 @@ namespace LuggageSortingPlant_V2._00
         {
             while (true)
             {
+                Monitor.Enter(MainServer.flightPlanLog);//Locking the thread
                 try
                 {
 
-                    Monitor.Enter(MainServer.flightPlanLog);//Locking the thread
 
                     for (int i = 0; i < MainServer.flightPlanLog.Length - 1; i++)
                     {
@@ -68,7 +68,7 @@ namespace LuggageSortingPlant_V2._00
                     Monitor.Exit(MainServer.flightPlanLog);//Release the lock
 
                 }
-                Thread.Sleep(50);
+                Thread.Sleep(1);
             }
         }
         #endregion

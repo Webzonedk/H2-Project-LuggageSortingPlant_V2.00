@@ -50,24 +50,28 @@ namespace LuggageSortingPlant_V2._00
         {
             while (true)
             {
-                for (int i = 0; i < MainServer.checkInBuffers[CheckInNumber].Buffer.Length - 1; i++)
+                //if (MainServer.checkInBuffers[CheckInNumber].buffer[MainServer.checkInBuffers[CheckInNumber].Buffer.Length - 1] != null)
+                //{
+
+                Monitor.Enter(MainServer.checkInBuffers[CheckInNumber]);//Locking the thread
+                try
                 {
-                    if (MainServer.checkInBuffers[CheckInNumber].Buffer[i] == null)
+                    for (int i = 0; i < MainServer.checkInBuffers[CheckInNumber].Buffer.Length - 1; i++)
                     {
-                        try
+                        if (MainServer.checkInBuffers[CheckInNumber].Buffer[i] == null)
                         {
-                            Monitor.Enter(MainServer.checkInBuffers[CheckInNumber]);//Locking the thread
                             MainServer.checkInBuffers[CheckInNumber].Buffer[i] = MainServer.checkInBuffers[CheckInNumber].Buffer[i + 1];
                             MainServer.checkInBuffers[CheckInNumber].Buffer[i + 1] = null;
                         }
-                        finally
-                        {
-                            Monitor.PulseAll(MainServer.checkInBuffers[CheckInNumber]);//Sending signal to other thread
-                            Monitor.Exit(MainServer.checkInBuffers[CheckInNumber]);//Release the lock
-                        }
                     }
                 }
-               // Thread.Sleep(50);
+                finally
+                {
+                    Monitor.PulseAll(MainServer.checkInBuffers[CheckInNumber]);//Sending signal to other thread
+                    Monitor.Exit(MainServer.checkInBuffers[CheckInNumber]);//Release the lock
+                }
+                //}
+                Thread.Sleep(1);
             }
         }
         #endregion

@@ -57,7 +57,7 @@ namespace LuggageSortingPlant_V2._00
             FlightPlan[] tempflight = new FlightPlan[1];
             while (true)
             {
-                Monitor.Enter(MainServer.flightPlans);//Locking the thread
+               // Monitor.Enter(MainServer.flightPlans);//Locking the thread
                 Monitor.Enter(MainServer.gateBuffers[GateNumber]);//Locking the thread
                 try
                 {
@@ -96,7 +96,7 @@ namespace LuggageSortingPlant_V2._00
                     }
                     else
                     {
-                        Monitor.Wait(MainServer.flightPlans);//Locking the thread
+                     //   Monitor.Wait(MainServer.flightPlans);//Locking the thread
                         Monitor.Wait(MainServer.gateBuffers[GateNumber]);//Locking the thread
 
                     }
@@ -105,8 +105,8 @@ namespace LuggageSortingPlant_V2._00
                 {
                     Monitor.PulseAll(MainServer.gateBuffers[GateNumber]);//Sending signal to other thread
                     Monitor.Exit(MainServer.gateBuffers[GateNumber]);//Release the lock
-                    Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
-                    Monitor.Exit(MainServer.flightPlans);//Release the lock
+                    //Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
+                    //Monitor.Exit(MainServer.flightPlans);//Release the lock
 
                     //int randomSleep = MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax);
                     //Thread.Sleep(randomSleep);

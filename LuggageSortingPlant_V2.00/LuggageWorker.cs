@@ -37,14 +37,11 @@ namespace LuggageSortingPlant_V2._00
         #region Methods
         public void CreateLuggage()
         {
+            FlightPlan[] tempFlightPlans = new FlightPlan[MainServer.maxPendingFlights];// a temporary flightplan to copy the real flightplan into, to avoid changes while working on it
             int luggageCounter = 1;
-            int paasengerNumber = 1;
+            int pasengerNumber = 1;
             while (true)
             {
-
-
-                //try
-                //{
 
 
                 if (MainServer.luggageBuffer[MainServer.MaxLuggageBuffer - 1] == null)
@@ -58,7 +55,7 @@ namespace LuggageSortingPlant_V2._00
                         {
                             if (MainServer.flightPlans[i] != null)
                             {
-                                Array.Copy(MainServer.flightPlans, i, MainServer.tempFlightPlans, randomMax, 1);//Copy first index from luggagebuffer to the temp array
+                                Array.Copy(MainServer.flightPlans, i, tempFlightPlans, randomMax, 1);//Copy first index from luggagebuffer to the temp array
 
                                 //  MainServer.tempFlightPlans[randomMax] = MainServer.flightPlans[i];//Adding the flightplans from the array to a temporary array
                                 randomMax++;
@@ -74,29 +71,29 @@ namespace LuggageSortingPlant_V2._00
                     }
 
 
+                    Monitor.Enter(MainServer.luggageBuffer);//Locking the luggage lock
                     try
                     {
 
                         int randomFlightNumber = MainServer.random.Next(0, randomMax);
                         int countLuggage = 0;
 
-                        Monitor.Enter(MainServer.luggageBuffer);//Locking the luggage lock
                         for (int j = 0; j < MainServer.luggageBuffer.Length; j++)
                         {
-                            if ((MainServer.luggageBuffer[j] != null) && (MainServer.luggageBuffer[j].FlightNumber == MainServer.tempFlightPlans[randomFlightNumber].FlightNumber))
+                            if ((MainServer.luggageBuffer[j] != null) && (MainServer.luggageBuffer[j].FlightNumber == tempFlightPlans[randomFlightNumber].FlightNumber))
                             {
                                 countLuggage++;
                             }
                         }
 
 
-                        if ((MainServer.tempFlightPlans[randomFlightNumber] != null) && (countLuggage < MainServer.tempFlightPlans[randomFlightNumber].Seats))
+                        if ((tempFlightPlans[randomFlightNumber] != null) && (countLuggage < tempFlightPlans[randomFlightNumber].Seats))
                         {
                             Luggage luggage = new Luggage();
                             luggage.LuggageNumber = luggageCounter;
                             luggageCounter++;
-                            luggage.PassengerNumber = paasengerNumber;
-                            paasengerNumber++;
+                            luggage.PassengerNumber = pasengerNumber;
+                            pasengerNumber++;
                             Faker passengerName = new Faker();
                             luggage.PassengerName = passengerName.Name.FullName();
                             luggage.FlightNumber = randomFlightNumber;
@@ -105,9 +102,9 @@ namespace LuggageSortingPlant_V2._00
 
 
                             // MainServer.outPut.PrintLuggage(MainServer.MaxLuggageBuffer - 1);//The output to console
-                            for (int i = 0; i < MainServer.tempFlightPlans.Length; i++)
+                            for (int i = 0; i < tempFlightPlans.Length; i++)
                             {
-                                MainServer.tempFlightPlans[i] = null;
+                                tempFlightPlans[i] = null;
                             }
                         }
                     }
@@ -117,7 +114,8 @@ namespace LuggageSortingPlant_V2._00
                         Monitor.Exit(MainServer.luggageBuffer);//Release the lock
                     }
                 }
-                Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
+             //   Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
+                Thread.Sleep(10);
 
             }
         }
