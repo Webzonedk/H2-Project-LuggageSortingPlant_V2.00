@@ -36,8 +36,9 @@ namespace LuggageSortingPlant_V2._00
 
             while (true)
             {
-
+                //--------------------------------------------------------------------------------
                 //receive luggage from the hall, represented with the Luggagebuffer
+                //--------------------------------------------------------------------------------
 
                 if ((MainServer.luggageBuffer[0] != null) && (tempLuggage[0] == null))
                 {
@@ -57,7 +58,9 @@ namespace LuggageSortingPlant_V2._00
 
 
 
-                //Check if there is already a buffer in use for the specific flight and if thats the case, insert luggae object in that buffer
+                //--------------------------------------------------------------------------------
+                //Check if there is already a buffer in use but its not full for the specific flight and if thats the case, insert luggae object in that buffer
+                //--------------------------------------------------------------------------------
                 for (int i = 0; i < MainServer.checkInBuffers.Length; i++)//Run throught all the buffers in the array
                 {
                     //checkInNumber = i;
@@ -93,7 +96,9 @@ namespace LuggageSortingPlant_V2._00
                 };
 
 
+                //--------------------------------------------------------------------------------
                 //If there is no buffer already in use for this gate and luggage object is still not null after first check, then 
+                //--------------------------------------------------------------------------------
                 if (tempLuggage[0] != null)
                 {
                     for (int i = 0; i < MainServer.checkInBuffers.Length; i++)
@@ -129,7 +134,9 @@ namespace LuggageSortingPlant_V2._00
                 };
 
 
+                //--------------------------------------------------------------------------------
                 //If luggage object is still not null after first and secund check, then return the luggage to the luggage buffer
+                //--------------------------------------------------------------------------------
                 if (tempLuggage[0] != null)
                 {
                     Monitor.Enter(MainServer.luggageBuffer);//Locking the thread

@@ -68,7 +68,7 @@ namespace LuggageSortingPlant_V2._00
                         //find flight in flightplan and get departuretime for the luggage in the buffer
                         for (int i = 0; i < MainServer.flightPlans.Length; i++)
                         {
-                            if (MainServer.flightPlans[i].FlightNumber == MainServer.gateBuffers[GateNumber].Buffer[0].FlightNumber)
+                            if (MainServer.flightPlans[i] != null && MainServer.flightPlans[i].FlightNumber == MainServer.gateBuffers[GateNumber].Buffer[0].FlightNumber)
                             {
                                 // departure = MainServer.flightPlans[i].DepartureTime;//getting the depaturtime to use to open gate
                                 if (((MainServer.flightPlans[i].DepartureTime - DateTime.Now).TotalSeconds <= MainServer.gateOpenBeforeDeparture) && ((MainServer.flightPlans[i].DepartureTime - DateTime.Now).TotalSeconds >= MainServer.gateCloseBeforeDeparture))
@@ -101,7 +101,6 @@ namespace LuggageSortingPlant_V2._00
                     {
                         //   Monitor.Wait(MainServer.flightPlans);//Locking the thread
                         Monitor.Wait(MainServer.gateBuffers[GateNumber]);//Locking the thread
-
                     }
                 }
                 finally
@@ -149,12 +148,13 @@ namespace LuggageSortingPlant_V2._00
                 {
                     for (int i = 0; i < MainServer.flightPlans.Length; i++)
                     {
-                        if (MainServer.flightPlans[i].FlightNumber == MainServer.gates[GateNumber].Buffer[0].FlightNumber)
+                        if (MainServer.flightPlans[i] != null && MainServer.flightPlans[i].FlightNumber == MainServer.gates[GateNumber].Buffer[0].FlightNumber)
                         {
                             flightNumber = MainServer.gates[GateNumber].Buffer[0].FlightNumber;
 
                             if ((MainServer.flightPlans[i].DepartureTime - DateTime.Now).TotalSeconds <= MainServer.gateCloseBeforeDeparture)
                             {
+                                Open = false;
                                 MainServer.gates[GateNumber].Buffer[0] = null;
                                 luggageCounter++;
                                 i = MainServer.flightPlans.Length - 1;
@@ -163,33 +163,7 @@ namespace LuggageSortingPlant_V2._00
                     };
                 };
 
-                //-------------------------------------------------------------------------------
-                //Moving the flight from the flightplans to the flightplanlog
-                //-------------------------------------------------------------------------------
-                for (int i = 0; i < MainServer.flightPlans.Length; i++)
-                {
-                    if (flightNumber == MainServer.flightPlans[i].FlightNumber)
-                    {
-                        if ((MainServer.flightPlans[i].DepartureTime - DateTime.Now).TotalSeconds <= 0)
-                        {
-                            Monitor.Enter(MainServer.flightPlans);//Locking the thread
-                            try
-                            {
-                                Array.Copy(MainServer.flightPlans, i, tempFlightPlan, 0, 1);
-                                tempFlightPlan[0].TicketsSold = luggageCounter;
-                                Array.Copy(tempFlightPlan, 0, MainServer.flightPlanLog, MainServer.logSize - 1, 1);
-                            }
-                            finally
-                            {
-                                luggageCounter = 0;
-                                flightNumber = -1;
-                                tempFlightPlan[0] = null;
-                                Monitor.PulseAll(MainServer.flightPlans);//Locking the thread
-                                Monitor.Exit(MainServer.flightPlans);//Locking the thread
-                            };
-                        };
-                    };
-                };
+               
                 Thread.Sleep(1);
             };
         }

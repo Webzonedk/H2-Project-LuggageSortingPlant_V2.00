@@ -31,8 +31,6 @@ namespace LuggageSortingPlant_V2._00
                 Monitor.Enter(MainServer.flightPlanLog);//Locking the thread
                 try
                 {
-
-
                     for (int i = 0; i < MainServer.flightPlanLog.Length - 1; i++)
                     {
                         if (MainServer.flightPlanLog[i] == null)
@@ -40,10 +38,10 @@ namespace LuggageSortingPlant_V2._00
                             MainServer.flightPlanLog[i] = MainServer.flightPlanLog[i + 1];
                             MainServer.flightPlanLog[i + 1] = null;
                         }
-                        else
-                        {
-                            Monitor.Wait(MainServer.flightPlanLog);
-                        }
+                        //else
+                        //{
+                        //    Monitor.Wait(MainServer.flightPlanLog);
+                        //}
                     }
 
                     //Counting how many logs there are in the array

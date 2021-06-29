@@ -57,52 +57,63 @@ namespace LuggageSortingPlant_V2._00
             {
 
 
-               // DateTime departure;
-                    Monitor.Enter(MainServer.checkInBuffers[CheckInNumber]);//Locking the thread
+                // DateTime departure;
+                Monitor.Enter(MainServer.flightPlans);//Locking the thread
+                Monitor.Enter(MainServer.checkInBuffers[CheckInNumber]);//Locking the thread
                 try
                 {
-
-                    if (MainServer.checkInBuffers[CheckInNumber].Buffer[0] != null)
+                    for (int i = 0; i < MainServer.checkInBuffers[CheckInNumber].Buffer.Length; i++)
                     {
-                        //find flight in flightplan and get departuretime
-                        for (int i = 0; i < MainServer.flightPlans.Length; i++)
+
+                        if (MainServer.checkInBuffers[CheckInNumber].Buffer[i] != null)
                         {
-                            if (MainServer.flightPlans[i] !=null && MainServer.flightPlans[i].FlightNumber == MainServer.checkInBuffers[CheckInNumber].Buffer[0].FlightNumber)
+                            //find flight in flightplan and get departuretime
+                            for (int j = 0; j < MainServer.flightPlans.Length; j++)
                             {
-                               // departure = MainServer.flightPlans[i].DepartureTime;//getting the depaturtime to use to open checkin
-                                if (((MainServer.flightPlans[i].DepartureTime - DateTime.Now).TotalSeconds <= MainServer.checkInOpenBeforeDeparture) && ((MainServer.flightPlans[i].DepartureTime - DateTime.Now).TotalSeconds >= MainServer.checkInCloseBeforeDeparture))
+                                if (MainServer.flightPlans[j] != null && MainServer.flightPlans[j].FlightNumber == MainServer.checkInBuffers[CheckInNumber].Buffer[i].FlightNumber)
                                 {
-                                    Open = true;
+                                    // departure = MainServer.flightPlans[i].DepartureTime;//getting the depaturtime to use to open checkin
+                                    if (((MainServer.flightPlans[j].DepartureTime - DateTime.Now).TotalSeconds <= MainServer.checkInOpenBeforeDeparture) && ((MainServer.flightPlans[j].DepartureTime - DateTime.Now).TotalSeconds >= MainServer.checkInCloseBeforeDeparture))
+                                    {
+                                        Open = true;
+                                    };
+                                    if ((MainServer.flightPlans[j].DepartureTime - DateTime.Now).TotalSeconds <= MainServer.checkInCloseBeforeDeparture)
+                                    {
+                                        Open = false;
+                                    };
+                                    j = MainServer.flightPlans.Length;
                                 };
-                                if ((MainServer.flightPlans[i].DepartureTime - DateTime.Now).TotalSeconds <= MainServer.checkInCloseBeforeDeparture)
-                                {
-                                    Open = false;
-                                };
-                                i = MainServer.flightPlans.Length;
+
                             };
 
-                        };
 
-
-                        if (Open)// If open
-                        {
-                            //removing luggage from the checkIn buffer
-                            if ((MainServer.checkInBuffers[CheckInNumber].Buffer[0] != null) && tempLuggage[0] == null)
+                            if (Open)// If open
                             {
-                                Array.Copy(MainServer.checkInBuffers[CheckInNumber].Buffer, 0, tempLuggage, 0, 1);//Copy first index from checkIn buffer to the temp array
-                                tempLuggage[0].CheckInTimeStamp = DateTime.Now;
-                               // MainServer.outPut.PrintCheckInArrival(tempLuggage[0]);
-                                MainServer.checkInBuffers[CheckInNumber].Buffer[0] = null;
+                                //removing luggage from the checkIn buffer
+                                if ((MainServer.checkInBuffers[CheckInNumber].Buffer[0] != null) && tempLuggage[0] == null)
+                                {
+                                    Array.Copy(MainServer.checkInBuffers[CheckInNumber].Buffer, 0, tempLuggage, 0, 1);//Copy first index from checkIn buffer to the temp array
+                                    tempLuggage[0].CheckInTimeStamp = DateTime.Now;
+                                    // MainServer.outPut.PrintCheckInArrival(tempLuggage[0]);
+                                    MainServer.checkInBuffers[CheckInNumber].Buffer[0] = null;
+                                };
                             };
-                        };
+                            i = MainServer.checkInBuffers[CheckInNumber].Buffer.Length - 1;
+                        }
+                        else
+                        {
+                            Open = false;
+                        }
+                        //else
+                        //{
+                        //    Monitor.Wait(MainServer.checkInBuffers[CheckInNumber]);//Locking the thread
+                        //};
                     }
-                    else
-                    {
-                        Monitor.Wait(MainServer.checkInBuffers[CheckInNumber]);//Locking the thread
-                    };
                 }
                 finally
                 {
+                    Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
+                    Monitor.Exit(MainServer.flightPlans);//Release the lock
                     Monitor.PulseAll(MainServer.checkInBuffers[CheckInNumber]);//Sending signal to other thread
                     Monitor.Exit(MainServer.checkInBuffers[CheckInNumber]);//Release the lock
                 };
@@ -119,20 +130,6 @@ namespace LuggageSortingPlant_V2._00
                     {
                         Array.Copy(tempLuggage, 0, MainServer.sortingUnitBuffer, MainServer.sortBufferSize - 1, 1);//Copy first index from checkIn buffer to the temp array
                         tempLuggage[0] = null;
-                        //int countLuggage = 0;
-
-                        //for (int i = 0; i < MainServer.sortingUnitBuffer.Length; i++)
-                        //{
-                        //    if (MainServer.sortingUnitBuffer[i] != null)
-                        //    {
-                        //        countLuggage++;
-                        //    };
-                        //};
-                       // MainServer.outPut.PrintSortingBufferCapacity(countLuggage);
-                        //}
-                        //else
-                        //{
-                        //    Monitor.Wait(MainServer.sortingUnitBuffer);//Set thread to wait state
                     };
                 }
                 finally

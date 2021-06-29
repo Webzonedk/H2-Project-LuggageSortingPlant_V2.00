@@ -16,7 +16,7 @@ namespace LuggageSortingPlant_V2._00
         //Global attributes adjustable from the Gui
         public static int amountOfCheckIns = 10;//Adjustable from WPF if possible
         public static int amountOfGates = 6;//Adjustable from WPF if possible
-        public static int maxPendingFlights = 10;//Adjustable from WPF if possible
+        public static int maxPendingFlights = 6;//Adjustable from WPF if possible
         public static int MaxLuggageBuffer = 200 * maxPendingFlights;
         public static int checkInBufferSize = 200;
         public static int sortBufferSize = 350 * maxPendingFlights;
@@ -27,8 +27,8 @@ namespace LuggageSortingPlant_V2._00
         public static int flightPlanMinInterval = 30;//secunds
         public static int flightPlanMaxInterval = 60;//secunds
         public static int checkInOpenBeforeDeparture = 60;//secunds
-        public static int checkInCloseBeforeDeparture = 30;//secunds
-        public static int gateOpenBeforeDeparture = 50;//secunds
+        public static int checkInCloseBeforeDeparture = 15;//secunds
+        public static int gateOpenBeforeDeparture = 55;//secunds
         public static int gateCloseBeforeDeparture = 5;//secunds
 
         //Global attributes for use in the Threads

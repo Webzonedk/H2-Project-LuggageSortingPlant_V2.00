@@ -65,50 +65,59 @@ namespace LuggageSortingPlant_V2._00
 
 
                 //----------------------------------------------------------------------------
-                //Getting the right Gatenumber if templuggage and tempflight is not null and adding the luggage to the gate buffer
+                //Getting the right Gatenumber if tempLuggage and tempflight is not null and adding the luggage to the gate buffer
                 //----------------------------------------------------------------------------
                 if (tempLuggage[0] != null)
                 {
                     //Getting the gateNumber and flightnumber for the luggage in tempbuffer
-                    for (int i = 0; i < MainServer.flightPlans.Length; i++)
+                    Monitor.Enter(MainServer.flightPlans);//Locking the thread
+                    try
                     {
-                        Monitor.Enter(MainServer.flightPlans);//Locking the thread
-                        try
+                        for (int i = 0; i < MainServer.flightPlans.Length; i++)
                         {
-                            if (tempLuggage[0].FlightNumber == MainServer.flightPlans[i].FlightNumber)
+                            if (MainServer.flightPlans[i] != null && tempLuggage[0].FlightNumber == MainServer.flightPlans[i].FlightNumber)
                             {
                                 Array.Copy(MainServer.flightPlans, i, tempFlight, 0, 1);//Copy flightplan from the index to the tempFlight array
                                 i = MainServer.flightPlans.Length - 1;
                             };
-                        }
-                        finally
-                        {
-                            Monitor.Pulse(MainServer.flightPlans);//Sending signal to LuggageWorker
-                            Monitor.Exit(MainServer.flightPlans);//Unlocking thread
                         };
+                    }
+                    finally
+                    {
+                        Monitor.Pulse(MainServer.flightPlans);//Sending signal to LuggageWorker
+                        Monitor.Exit(MainServer.flightPlans);//Unlocking thread
                     };
 
 
 
                     //----------------------------------------------------------------------------
-                    //Moving luggage from tempbuffer to the right gatebuffer if it fits to the selected luggage destination gatenumber if the 
+                    //Moving luggage from tempbuffer to the right gatebuffer if it fits to the selected luggage destination gatenumber or if the gatebuffer is empty
                     //----------------------------------------------------------------------------
-                    if (tempFlight != null)
+                    if (tempFlight[0] != null)
                     {
                         Monitor.Enter(MainServer.gateBuffers[tempFlight[0].GateNumber]);//Locking the thread
                         try
                         {
-                            if (MainServer.gateBuffers[tempFlight[0].GateNumber].Buffer[MainServer.gateBufferSize - 1] == null && (tempFlight[0].DepartureTime - DateTime.Now).TotalSeconds >= MainServer.gateCloseBeforeDeparture + 5)
+                            //if last index in buffer is null and gate is not yet closed
+                            if (MainServer.gateBuffers[tempFlight[0].GateNumber].Buffer[MainServer.gateBufferSize - 1] == null && (tempFlight[0].DepartureTime - DateTime.Now).TotalSeconds >= MainServer.gateCloseBeforeDeparture)
                             {
-                                tempLuggage[0].SortOutTimeStamp = DateTime.Now;//Adding a timestamp for when the luggage has exited the sorting unit
-                                Array.Copy(tempLuggage, 0, MainServer.gateBuffers[tempFlight[0].GateNumber].Buffer, MainServer.gateBufferSize - 1, 1);//Copy first index from tempLuggage to the last index in the luggage buffer array
-                                tempLuggage[0] = null;
-
+                                for (int i = 0; i < MainServer.gateBuffers[tempFlight[0].GateNumber].Buffer.Length; i++)
+                                {
+                                    if (MainServer.gateBuffers[tempFlight[0].GateNumber].Buffer[i] != null && MainServer.gateBuffers[tempFlight[0].GateNumber].Buffer[i].FlightNumber == tempFlight[0].FlightNumber)
+                                    {
+                                        // tempLuggage[0].SortOutTimeStamp = DateTime.Now;//Adding a timestamp for when the luggage has exited the sorting unit
+                                        Array.Copy(tempLuggage, 0, MainServer.gateBuffers[tempFlight[0].GateNumber].Buffer, MainServer.gateBufferSize - 1, 1);//Copy first index from tempLuggage to the last index in the luggage buffer array
+                                        tempLuggage[0] = null;
+                                        i = MainServer.gateBuffers[tempFlight[0].GateNumber].Buffer.Length;
+                                    }
+                                }
+                                if (tempLuggage[0] != null)// if no instances was found
+                                {
+                                    //  tempLuggage[0].SortOutTimeStamp = DateTime.Now;//Adding a timestamp for when the luggage has exited the sorting unit
+                                    Array.Copy(tempLuggage, 0, MainServer.gateBuffers[tempFlight[0].GateNumber].Buffer, MainServer.gateBufferSize - 1, 1);//Copy first index from tempLuggage to the last index in the luggage buffer array
+                                    tempLuggage[0] = null;
+                                }
                             }
-                            //else
-                            //{
-                            //    Monitor.Wait(MainServer.gateBuffers[tempFlight[0].GateNumber]);//Waiting for the gate buffer to release the lock when it has emptied the last index in the array
-                            //}
                         }
                         finally
                         {
@@ -119,15 +128,12 @@ namespace LuggageSortingPlant_V2._00
                     }
                 }
 
-                    //----------------------------------------------------------------------------
-                    //--------------------Look into this closely----------------------------------------------------------------------------------------------------------------------
-                    //----------------------------------------------------------------------------
+                //----------------------------------------------------------------------------
+                //------------------------------------------------------------------------------------------------------------------------------------------
+                //----------------------------------------------------------------------------
                 //If the luggage did not get to a gate due to that there is already an other plane with an earlier departure or the plane has left.
                 if (tempLuggage[0] != null && tempFlight[0] == null)
                 {
-
-
-
                     //----------------------------------------------------------------------------
                     //Getting a new flightnumber and gateNumber to relocate the luggage to.
                     //----------------------------------------------------------------------------
@@ -136,14 +142,11 @@ namespace LuggageSortingPlant_V2._00
                     {
                         for (int i = 0; i < MainServer.flightPlanLog.Length; i++)
                         {
-                            if (MainServer.flightPlanLog[i] != null)
+                            if (MainServer.flightPlanLog[i] != null && tempLuggage[0].FlightNumber == MainServer.flightPlanLog[i].FlightNumber)
                             {
-                                if (tempLuggage[0].FlightNumber == MainServer.flightPlanLog[i].FlightNumber)
-                                {
-                                    Array.Copy(MainServer.flightPlanLog, i, tempFlight, 0, 1);//Copy first index from luggagebuffer to the temp array
-                                    i = MainServer.flightPlanLog.Length - 1;
-                                };
-                            }
+                                Array.Copy(MainServer.flightPlanLog, i, tempFlight, 0, 1);//Copy first index from luggagebuffer to the temp array
+                                i = MainServer.flightPlanLog.Length - 1;
+                            };
                         };
                     }
                     finally
@@ -161,7 +164,7 @@ namespace LuggageSortingPlant_V2._00
                         {
                             for (int i = 0; i < MainServer.flightPlans.Length; i++)
                             {
-                                if (tempFlight[0].Destination == MainServer.flightPlans[i].Destination)
+                                if (MainServer.flightPlans[i] != null && tempFlight[0].Destination == MainServer.flightPlans[i].Destination)
                                 {
                                     Array.Copy(MainServer.flightPlans, i, tempFlight, 0, 1);//Copy first index from luggagebuffer to the temp array
                                     i = MainServer.flightPlans.Length - 1;
@@ -203,33 +206,33 @@ namespace LuggageSortingPlant_V2._00
                     //-----------------------------------------------------------------
                     //This part can be removed later when flightplan log is finished
                     //-----------------------------------------------------------------
-                    if (tempFlight[0] == null)
-                    {
-                        Monitor.Enter(MainServer.sortingUnitBuffer);//Locking the thread
-                        try
-                        {
-                            if (MainServer.sortingUnitBuffer[MainServer.sortingUnitBuffer.Length - 1] == null)
-                            {
-                                Array.Copy(tempLuggage, 0, MainServer.sortingUnitBuffer, MainServer.sortingUnitBuffer.Length - 1, 1);//Copy first index from tempLuggage to the last index in the sorting buffer array
-                                tempLuggage[0] = null;
-                            }
-                            else
-                            {
-                                Monitor.Wait(MainServer.sortingUnitBuffer);//Unlocking thread
-                            }
-                        }
-                        finally
-                        {
-                            Monitor.Pulse(MainServer.sortingUnitBuffer);//Sending signal to LuggageWorker
-                            Monitor.Exit(MainServer.sortingUnitBuffer);//Unlocking thread
-                        }
-                    }
+                    //if (tempFlight[0] == null)
+                    //{
+                    //    Monitor.Enter(MainServer.sortingUnitBuffer);//Locking the thread
+                    //    try
+                    //    {
+                    //        if (MainServer.sortingUnitBuffer[MainServer.sortingUnitBuffer.Length - 1] == null)
+                    //        {
+                    //            Array.Copy(tempLuggage, 0, MainServer.sortingUnitBuffer, MainServer.sortingUnitBuffer.Length - 1, 1);//Copy first index from tempLuggage to the last index in the sorting buffer array
+                    //            tempLuggage[0] = null;
+                    //        }
+                    //        else
+                    //        {
+                    //            Monitor.Wait(MainServer.sortingUnitBuffer);//Unlocking thread
+                    //        }
+                    //    }
+                    //    finally
+                    //    {
+                    //        Monitor.Pulse(MainServer.sortingUnitBuffer);//Sending signal to LuggageWorker
+                    //        Monitor.Exit(MainServer.sortingUnitBuffer);//Unlocking thread
+                    //    }
+                    //}
                     //-----------------------------------------------------------------
                     //-----------------------------------------------------------------
                     //-----------------------------------------------------------------
 
                 };
-                Thread.Sleep(25);
+                Thread.Sleep(1);
             };
         }
         #endregion

@@ -29,25 +29,36 @@ namespace LuggageSortingPlant_V2._00
         {
             while (true)
             {
-                if (MainServer.flightPlans[MainServer.maxPendingFlights - 1] != null && MainServer.flightPlans[0] == null)
+                Monitor.Enter(MainServer.flightPlans);//Locking the thread
+                try
                 {
-                    Monitor.Enter(MainServer.flightPlans);//Locking the thread
-                    try
+                    for (int i = 0; i < MainServer.flightPlans.Length - 1; i++)
                     {
-                        for (int i = 0; i < MainServer.flightPlans.Length - 1; i++)
+                        if (MainServer.flightPlans[i] != null && (MainServer.flightPlans[i].DepartureTime - DateTime.Now).TotalSeconds <= 0)
                         {
-                            if (MainServer.flightPlans[i] == null)
+                            Monitor.Enter(MainServer.flightPlanLog);//Locking the thread
+                            try
                             {
-                                MainServer.flightPlans[i] = MainServer.flightPlans[i + 1];
-                                MainServer.flightPlans[i + 1] = null;
+                                Array.Copy(MainServer.flightPlans, i, MainServer.flightPlanLog, MainServer.logSize - 1, 1);
+                                MainServer.flightPlans[i] = null;
+                            }
+                            finally
+                            {
+                                Monitor.PulseAll(MainServer.flightPlanLog);//Sending signal to other thread
+                                Monitor.Exit(MainServer.flightPlanLog);//Release the lock
                             }
                         }
+                        if (MainServer.flightPlans[i] == null)
+                        {
+                            MainServer.flightPlans[i] = MainServer.flightPlans[i + 1];
+                            MainServer.flightPlans[i + 1] = null;
+                        }
                     }
-                    finally
-                    {
-                        Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
-                        Monitor.Exit(MainServer.flightPlans);//Release the lock
-                    }
+                }
+                finally
+                {
+                    Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
+                    Monitor.Exit(MainServer.flightPlans);//Release the lock
                 }
                 Thread.Sleep(1);
             }
