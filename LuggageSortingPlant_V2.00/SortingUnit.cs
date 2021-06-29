@@ -65,7 +65,7 @@ namespace LuggageSortingPlant_V2._00
 
 
                 //----------------------------------------------------------------------------
-                //Getting the right Gatenumber if tempLuggage and tempflight is not null and adding the luggage to the gate buffer
+                //Setting the tempflight to fit the tempLuggage
                 //----------------------------------------------------------------------------
                 if (tempLuggage[0] != null)
                 {
@@ -111,7 +111,15 @@ namespace LuggageSortingPlant_V2._00
                                         i = MainServer.gateBuffers[tempFlight[0].GateNumber].Buffer.Length;
                                     }
                                 }
-                                if (tempLuggage[0] != null)// if no instances was found
+                                bool isNotEmpty=false;
+                                for (int i = 0; i < MainServer.gateBuffers[tempFlight[0].GateNumber].Buffer.Length; i++)
+                                {
+                                    if (MainServer.gateBuffers[tempFlight[0].GateNumber].Buffer[i] !=null)
+                                    {
+                                        isNotEmpty = true;
+                                    }
+                                }
+                                if (tempLuggage[0] != null && !isNotEmpty)// if no instances was found
                                 {
                                     //  tempLuggage[0].SortOutTimeStamp = DateTime.Now;//Adding a timestamp for when the luggage has exited the sorting unit
                                     Array.Copy(tempLuggage, 0, MainServer.gateBuffers[tempFlight[0].GateNumber].Buffer, MainServer.gateBufferSize - 1, 1);//Copy first index from tempLuggage to the last index in the luggage buffer array

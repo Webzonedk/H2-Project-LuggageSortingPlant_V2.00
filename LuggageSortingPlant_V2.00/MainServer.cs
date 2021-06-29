@@ -18,10 +18,10 @@ namespace LuggageSortingPlant_V2._00
         public static int amountOfGates = 6;//Adjustable from WPF if possible
         public static int maxPendingFlights = 6;//Adjustable from WPF if possible
         public static int MaxLuggageBuffer = 200 * maxPendingFlights;
-        public static int checkInBufferSize = 200;
+        public static int checkInBufferSize = 355;
         public static int sortBufferSize = 350 * maxPendingFlights;
-        public static int randomSleepMin = 10;
-        public static int randomSleepMax = 25;
+        public static int randomSleepMin = 25;
+        public static int randomSleepMax = 50;
         public static int BasicSleep = 2;
         public static int gateBufferSize = 400;
         public static int logSize = 100;

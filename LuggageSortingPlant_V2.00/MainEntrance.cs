@@ -163,10 +163,10 @@ namespace LuggageSortingPlant_V2._00
                             Array.Copy(tempLuggage, 0, MainServer.luggageBuffer, MainServer.MaxLuggageBuffer - 1, 1);//Copy first index from tempLuggage to the last index in the luggage buffer array
                             tempLuggage[0] = null;
                         }
-                        else
-                        {
-                            Monitor.Wait(MainServer.luggageBuffer);//Setting the thread in waiting state
-                        };
+                        //else
+                        //{
+                        //    Monitor.Wait(MainServer.luggageBuffer);//Setting the thread in waiting state
+                        //};
                     }
                     finally
                     {
