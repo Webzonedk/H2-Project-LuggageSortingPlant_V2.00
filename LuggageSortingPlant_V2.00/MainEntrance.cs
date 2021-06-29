@@ -97,7 +97,8 @@ namespace LuggageSortingPlant_V2._00
 
 
                 //--------------------------------------------------------------------------------
-                //If there is no buffer already in use for this gate and luggage object is still not null after first check, then 
+                //If there is no buffer already in use for this gate and luggage object is still not null after first check,
+                //then  if there is an empty buffer, then begin using that one instaed.
                 //--------------------------------------------------------------------------------
                 if (tempLuggage[0] != null)
                 {
@@ -135,13 +136,28 @@ namespace LuggageSortingPlant_V2._00
 
 
                 //--------------------------------------------------------------------------------
-                //If luggage object is still not null after first and secund check, then return the luggage to the luggage buffer
+                //If luggage object is still not null after first and secund check, then return the luggage
+                //to the luggage buffer to be addressed to another flight to same destination
+                //--------------------NOT WORKING-----------------------------------------------
                 //--------------------------------------------------------------------------------
                 if (tempLuggage[0] != null)
                 {
                     Monitor.Enter(MainServer.luggageBuffer);//Locking the thread
                     try
                     {
+                        for (int i = 0; i < MainServer.flightPlans.Length; i++)
+                        {
+                            if (tempLuggage[0].FlightNumber == MainServer.flightPlans[i].FlightNumber)
+                            {
+                                for (int j = 0; j < MainServer.flightPlans.Length; j++)
+                                {
+                                    if (MainServer.flightPlans[i].Destination == MainServer.flightPlans[j].Destination && MainServer.flightPlans[i].FlightNumber != MainServer.flightPlans[j].FlightNumber)
+                                    {
+                                        tempLuggage[0].FlightNumber = MainServer.flightPlans[j].FlightNumber;
+                                    }
+                                }
+                            }
+                        }
                         if (MainServer.luggageBuffer[MainServer.MaxLuggageBuffer - 1] == null)
                         {
                             Array.Copy(tempLuggage, 0, MainServer.luggageBuffer, MainServer.MaxLuggageBuffer - 1, 1);//Copy first index from tempLuggage to the last index in the luggage buffer array
@@ -159,7 +175,7 @@ namespace LuggageSortingPlant_V2._00
                     };
                 };
                 Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
-                //Thread.Sleep(1);
+                //Thread.Sleep(MainServer.BasicSleep);
             };
         }
         #endregion

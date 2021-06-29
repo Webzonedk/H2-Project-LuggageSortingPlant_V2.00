@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-
+//----------------------------------------------------------------------------------
+// This class is representing the gates. it takes the luggae from the gatebuffer an send it to the boarding buffer and emptying it when flight takes off
+//----------------------------------------------------------------------------------
 namespace LuggageSortingPlant_V2._00
 {
     class Gate
@@ -54,8 +56,8 @@ namespace LuggageSortingPlant_V2._00
         {
             // DateTime departure = DateTime.Now;
             int luggageCounter = 0;
-            int flightNumber = -1;
-            FlightPlan[] tempFlightPlan = new FlightPlan[1];
+           // int flightNumber = -1;
+           // FlightPlan[] tempFlightPlan = new FlightPlan[1];
             //   FlightPlan[] tempflight = new FlightPlan[1];
             while (true)
             {
@@ -150,7 +152,7 @@ namespace LuggageSortingPlant_V2._00
                     {
                         if (MainServer.flightPlans[i] != null && MainServer.flightPlans[i].FlightNumber == MainServer.gates[GateNumber].Buffer[0].FlightNumber)
                         {
-                            flightNumber = MainServer.gates[GateNumber].Buffer[0].FlightNumber;
+                           // flightNumber = MainServer.gates[GateNumber].Buffer[0].FlightNumber;
 
                             if ((MainServer.flightPlans[i].DepartureTime - DateTime.Now).TotalSeconds <= MainServer.gateCloseBeforeDeparture)
                             {

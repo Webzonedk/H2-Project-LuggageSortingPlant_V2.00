@@ -88,7 +88,7 @@ namespace LuggageSortingPlant_V2._00
                     Monitor.Exit(MainServer.flightPlans);//Release the lock
                 }
                // Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
-                Thread.Sleep(1);
+                Thread.Sleep(MainServer.BasicSleep);
             }
         }
     }

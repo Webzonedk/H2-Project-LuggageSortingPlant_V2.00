@@ -3,27 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//-------------------------------------------------------------------------------------
+// This class is no longer in use. It was used to print to console before migrating to WPF
+//-------------------------------------------------------------------------------------
 
 namespace LuggageSortingPlant_V2._00
 {
     class OutPut
     {
-        #region Fields
 
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Constructors
-
-
-        #endregion
-
-        #region Methods
-
-        #endregion
         public void PrintFlightPlan(int i)//Method with argument
         {
             Console.ResetColor();

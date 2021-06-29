@@ -48,9 +48,9 @@ namespace LuggageSortingPlant_V2._00
                 {
                     //Added a check to ensure that the randomMax will not exceed the amount og flights in the flightplan
                     int randomMax = 0;
+                        Monitor.Enter(MainServer.flightPlans);//Locking the flightPlan lock
                     try
                     {
-                        Monitor.Enter(MainServer.flightPlans);//Locking the flightPlan lock
                         for (int i = 0; i < MainServer.flightPlans.Length; i++)
                         {
                             if (MainServer.flightPlans[i] != null)
@@ -71,11 +71,11 @@ namespace LuggageSortingPlant_V2._00
 
 
                     Monitor.Enter(MainServer.luggageBuffer);//Locking the luggage lock
+                        Monitor.Enter(MainServer.flightPlans);//Locking the luggage lock
                     try
                     {
                         int randomFlightNumber = MainServer.random.Next(0, randomMax);
 
-                        Monitor.Enter(MainServer.flightPlans);//Locking the luggage lock
                         if ((MainServer.flightPlans[randomFlightNumber] != null) && (MainServer.flightPlans[randomFlightNumber].TicketsSold < MainServer.flightPlans[randomFlightNumber].Seats))
                         {
                             Luggage luggage = new Luggage();
@@ -103,7 +103,7 @@ namespace LuggageSortingPlant_V2._00
                 }
 
                 Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
-                //Thread.Sleep(10);
+                //Thread.Sleep(MainServer.BasicSleep);
 
             }
         }

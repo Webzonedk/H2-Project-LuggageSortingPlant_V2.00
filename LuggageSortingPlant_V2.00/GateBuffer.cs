@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-
+//-----------------------------------------------------------------------------
+// A class to be used for ordering the gatebuffers to woek as a queue
+//-----------------------------------------------------------------------------
 namespace LuggageSortingPlant_V2._00
 {
     class GateBuffer
@@ -48,12 +50,10 @@ namespace LuggageSortingPlant_V2._00
         #endregion
 
         #region Methods
-        public void ReorderingGateBuffer()//Not yet adjusted to fit gatebuffer
+        public void ReorderingGateBuffer()
         {
             while (true)
             {
-                //if (MainServer.gateBuffers[gateNumber].Buffer[MainServer.gateBuffers[gateNumber].Buffer.Length - 1] !=null)
-                //{
                 Monitor.Enter(MainServer.gateBuffers[gateNumber]);//Locking the thread
                 try
                 {
@@ -71,8 +71,6 @@ namespace LuggageSortingPlant_V2._00
                     Monitor.PulseAll(MainServer.gateBuffers[gateNumber]);//Sending signal to other thread
                     Monitor.Exit(MainServer.gateBuffers[gateNumber]);//Release the lock
                 }
-
-                //}
                 Thread.Sleep(1);
             }
         }

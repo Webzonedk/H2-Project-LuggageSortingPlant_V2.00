@@ -67,8 +67,8 @@ namespace LuggageSortingPlant_V2._00
                     Monitor.PulseAll(MainServer.checkInBuffers[CheckInNumber]);//Sending signal to other thread
                     Monitor.Exit(MainServer.checkInBuffers[CheckInNumber]);//Release the lock
                 }
-                Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
-               // Thread.Sleep(1);
+               // Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
+                Thread.Sleep(MainServer.BasicSleep);
             }
         }
         #endregion
