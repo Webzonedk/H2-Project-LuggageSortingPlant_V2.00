@@ -21,6 +21,7 @@ namespace LuggageSortingPlant_V2._00
     /// </summary>
     public partial class MainWindow : Window
     {
+        //Dårlig navngivning - > Hvad er en main server - Navnet er ikke særligt tydelig
         MainServer manager = new MainServer();
 
         public MainWindow()
@@ -82,6 +83,8 @@ namespace LuggageSortingPlant_V2._00
                 {
                     switch (((CheckInEvent)e).CheckIn.CheckInNumber)
                     {
+                    
+                    //Denne er sjusket
                         case 0:
                             if (((CheckInEvent)e).CheckIn.Open)
                             {
