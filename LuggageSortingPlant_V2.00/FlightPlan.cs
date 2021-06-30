@@ -23,8 +23,8 @@ namespace LuggageSortingPlant_V2._00
         #endregion
 
         #region Properties
-
-
+        
+        //Hvorfor er alle dine setters public?
         public int FlightNumber
         {
             get { return flightNumber; }
@@ -59,10 +59,12 @@ namespace LuggageSortingPlant_V2._00
         #endregion
 
         #region Constructors
+        // Hvorfor en tom konstruktør - det giver ingen mening
         public FlightPlan()
         {
 
         }
+        
         //Initializing
         public FlightPlan(int flightNumber, string destination, int seats, int gateNumber, DateTime departureTime)
         {
