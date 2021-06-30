@@ -61,7 +61,7 @@ namespace LuggageSortingPlant_V2._00
                         tempFlightObject.Destination = MainServer.destinations[destinationIndex];
                         tempFlightObject.Seats = MainServer.numberOfSeats[seats];
                         tempFlightObject.GateNumber = MainServer.random.Next(0, MainServer.amountOfGates);
-                        //Checking if there is already a flight in the flightPlan, and if so, using it to set the last departure tim
+                        //Checking if there is already a flight in the flightPlan, and if so, using it to set the last departure time
                         for (int i = 0; i < MainServer.flightPlans.Length - 2; i++)
                         {
                             if (MainServer.flightPlans[i] != null)
@@ -87,7 +87,23 @@ namespace LuggageSortingPlant_V2._00
                     Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
                     Monitor.Exit(MainServer.flightPlans);//Release the lock
                 }
-               // Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
+
+
+                for (int i = 0; i < MainServer.flightPlans.Length; i++)
+                {
+                    for (int j = 0; j < MainServer.checkIns.Length; j++)
+                    {
+                        if (MainServer.flightPlans[i] != null && ((MainServer.flightPlans[i].DepartureTime - DateTime.Now).TotalSeconds >= MainServer.checkInCloseBeforeDeparture + 5))
+                        {
+
+                            if (MainServer.checkIns[j].CheckInForFlight[0] == null)
+                            {
+                                Array.Copy(MainServer.flightPlans, i, MainServer.checkIns[j].CheckInForFlight, 0, 1);//Copy the flightplan to the checkin
+                            }
+                        }
+                    }
+                }
+                // Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
                 Thread.Sleep(MainServer.BasicSleep);
             }
         }
