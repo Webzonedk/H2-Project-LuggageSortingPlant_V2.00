@@ -9,16 +9,15 @@ namespace LuggageSortingPlant_V2._00
     class SortingUnit
     {
         #region Fields
-        private int sortingUnitNumber;
 
         #endregion
 
         #region Properties
-        public int SortingUnitNumber
-        {
-            get { return sortingUnitNumber; }
-            set { sortingUnitNumber = value; }
-        }
+        //public int SortingUnitNumber
+        //{
+        //    get { return sortingUnitNumber; }
+        //    set { sortingUnitNumber = value; }
+        //}
 
         #endregion
 
@@ -240,7 +239,7 @@ namespace LuggageSortingPlant_V2._00
                     //-----------------------------------------------------------------
 
                 };
-                Thread.Sleep(MainServer.BasicSleep);
+                Thread.Sleep(MainServer.basicSleep);
             };
         }
         #endregion

@@ -78,33 +78,35 @@ namespace LuggageSortingPlant_V2._00
                         tempFlightPlan[0] = tempFlightObject;
 
                         Array.Copy(tempFlightPlan, 0, MainServer.flightPlans, MainServer.maxPendingFlights - 1, 1);//Copy first index from tempLuggage to the last index in the luggage buffer array
-                        tempFlightPlan[0] = null;
+
                         //  MainServer.outPut.PrintFlightPlan(MainServer.maxPendingFlights - 1);//Send parameter with the method
                     }
-                }
-                finally
-                {
-                    Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
-                    Monitor.Exit(MainServer.flightPlans);//Release the lock
-                }
 
 
-                for (int i = 0; i < MainServer.flightPlans.Length; i++)
-                {
+
+
                     for (int j = 0; j < MainServer.checkIns.Length; j++)
                     {
-                        if (MainServer.flightPlans[i] != null && ((MainServer.flightPlans[i].DepartureTime - DateTime.Now).TotalSeconds >= MainServer.checkInCloseBeforeDeparture + 5))
+                        if (tempFlightPlan[0] != null && ((tempFlightPlan[0].DepartureTime - DateTime.Now).TotalSeconds >= MainServer.checkInCloseBeforeDeparture + 5))
                         {
 
                             if (MainServer.checkIns[j].CheckInForFlight[0] == null)
                             {
-                                Array.Copy(MainServer.flightPlans, i, MainServer.checkIns[j].CheckInForFlight, 0, 1);//Copy the flightplan to the checkin
+                                Array.Copy(tempFlightPlan, 0, MainServer.checkIns[j].CheckInForFlight, 0, 1);//Copy the flightplan to the checkin
+                                j = MainServer.checkIns.Length - 1;
                             }
                         }
                     }
+
+                }
+                finally
+                {
+                    tempFlightPlan[0] = null;
+                    Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
+                    Monitor.Exit(MainServer.flightPlans);//Release the lock
                 }
                 // Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
-                Thread.Sleep(MainServer.BasicSleep);
+                Thread.Sleep(MainServer.basicSleep);
             }
         }
     }

@@ -65,17 +65,18 @@ namespace LuggageSortingPlant_V2._00
                     Monitor.Exit(MainServer.luggageBuffer);//Unlocking thread
                 }
 
-                for (int i = 0; i < MainServer.checkIns.Length; i++)
+
+
+                Monitor.Enter(MainServer.checkInBuffers);//Locking the thread
+                try
                 {
-                    Monitor.Enter(MainServer.checkIns[i]);//Locking the thread
-                    Monitor.Enter(MainServer.checkInBuffers[i]);//Locking the thread
-                    try
+                    for (int i = 0; i < MainServer.checkInBuffers.Length; i++)
                     {
-                        if (MainServer.checkIns[i].CheckInForFlight[0] != null && MainServer.checkIns[i].CheckInForFlight[0].FlightNumber == tempLuggage[0].FlightNumber)
+                        if (tempLuggage[0] != null && MainServer.checkIns[i].CheckInForFlight[0] != null && tempLuggage[0].FlightNumber == MainServer.checkIns[i].CheckInForFlight[0].FlightNumber)
                         {
                             if (MainServer.checkInBuffers[i].Buffer[MainServer.checkInBufferSize - 1] == null)
                             {
-                                if (((MainServer.checkIns[i].CheckInForFlight[0].DepartureTime - DateTime.Now).TotalSeconds <= MainServer.checkInOpenBeforeDeparture) && ((MainServer.checkIns[i].CheckInForFlight[0].DepartureTime - DateTime.Now).TotalSeconds >= MainServer.checkInCloseBeforeDeparture))
+                                if ((MainServer.checkIns[i].CheckInForFlight[0].DepartureTime - DateTime.Now).TotalSeconds >= MainServer.checkInCloseBeforeDeparture + 5)
                                 {
                                     Array.Copy(tempLuggage, 0, MainServer.checkInBuffers[i].Buffer, MainServer.checkInBufferSize - 1, 1);//Copy first index from tempArray to the checkin buffer
                                     tempLuggage[0] = null;
@@ -83,13 +84,11 @@ namespace LuggageSortingPlant_V2._00
                             }
                         }
                     }
-                    finally
-                    {
-                        Monitor.Pulse(MainServer.checkIns[i]);//Sending signal to LuggageWorker
-                        Monitor.Exit(MainServer.checkIns[i]);//Unlocking thread
-                        Monitor.Pulse(MainServer.checkInBuffers[i]);//Sending signal to LuggageWorker
-                        Monitor.Exit(MainServer.checkInBuffers[i]);//Unlocking thread
-                    }
+                }
+                finally
+                {
+                    Monitor.Pulse(MainServer.checkInBuffers);//Sending signal to LuggageWorker
+                    Monitor.Exit(MainServer.checkInBuffers);//Unlocking thread
                 }
 
                 //This is a life hack----------------------------------------------------

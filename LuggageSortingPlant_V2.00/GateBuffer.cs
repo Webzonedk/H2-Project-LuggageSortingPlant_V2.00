@@ -13,8 +13,6 @@ namespace LuggageSortingPlant_V2._00
     {
         #region Fields
         private int gateNumber;
-
-
         private Luggage[] buffer = new Luggage[MainServer.gateBufferSize];
 
         #endregion

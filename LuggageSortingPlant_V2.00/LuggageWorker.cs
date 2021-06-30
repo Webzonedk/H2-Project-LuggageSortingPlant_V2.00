@@ -44,7 +44,7 @@ namespace LuggageSortingPlant_V2._00
             {
 
 
-                if (MainServer.luggageBuffer[MainServer.MaxLuggageBuffer - 1] == null)
+                if (MainServer.luggageBuffer[MainServer.maxLuggageBuffer - 1] == null)
                 {
                     //Added a check to ensure that the randomMax will not exceed the amount og flights in the flightplan
                     int randomMax = 0;
@@ -88,7 +88,7 @@ namespace LuggageSortingPlant_V2._00
                             luggage.FlightNumber = randomFlightNumber;
 
 
-                            MainServer.luggageBuffer[MainServer.MaxLuggageBuffer - 1] = luggage;
+                            MainServer.luggageBuffer[MainServer.maxLuggageBuffer - 1] = luggage;
                             MainServer.flightPlans[randomFlightNumber].TicketsSold++;
 
                         }

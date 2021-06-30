@@ -9,7 +9,7 @@ namespace LuggageSortingPlant_V2._00
     class GateBufferController
     {
         public EventHandler countGateBufferLuggage;
-        private Thread gateLuggageCounterThread;
+      //  private Thread gateLuggageCounterThread;
         private int gateNumber;
 
         public int GateNumber
@@ -19,11 +19,11 @@ namespace LuggageSortingPlant_V2._00
         }
 
 
-        public Thread GateLuggageCounterThread
-        {
-            get { return gateLuggageCounterThread; }
-            set { gateLuggageCounterThread = value; }
-        }
+        //public Thread GateLuggageCounterThread
+        //{
+        //    get { return gateLuggageCounterThread; }
+        //    set { gateLuggageCounterThread = value; }
+        //}
 
 
 

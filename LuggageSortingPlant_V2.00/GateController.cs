@@ -9,7 +9,7 @@ namespace LuggageSortingPlant_V2._00
     class GateController
     {
         public EventHandler openCloseGates;
-        private Thread gateOpenCloseThread;
+       // private Thread gateOpenCloseThread;
         private int gateNumber;
 
         public int GateNumber
@@ -19,11 +19,11 @@ namespace LuggageSortingPlant_V2._00
         }
 
 
-        public Thread GateOpenCloseThread
-        {
-            get { return gateOpenCloseThread; }
-            set { gateOpenCloseThread = value; }
-        }
+        //public Thread GateOpenCloseThread
+        //{
+        //    get { return gateOpenCloseThread; }
+        //    set { gateOpenCloseThread = value; }
+        //}
 
 
 
