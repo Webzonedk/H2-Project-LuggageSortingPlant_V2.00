@@ -8,7 +8,7 @@ namespace LuggageSortingPlant_V2._00
 {
     class SortingUnitController
     {
-
+        //Altid stort begyndelsesbogstav ved events
         public EventHandler countLuggageInSortingUnitBuffer;
 
         public SortingUnitController()
@@ -33,6 +33,7 @@ namespace LuggageSortingPlant_V2._00
             try
             {
                 int count = 0;
+                // sortingUnitBuffer -> Altid stort begyndelsesbogstav ved properties
                 for (int i = 0; i < MainServer.sortingUnitBuffer.Length; i++)
                 {
                     if (MainServer.sortingUnitBuffer[i] != null)
@@ -44,7 +45,7 @@ namespace LuggageSortingPlant_V2._00
             }
             finally
             {
-
+                //Aldrig en tom finally!!!!! 
             }
 
         }
