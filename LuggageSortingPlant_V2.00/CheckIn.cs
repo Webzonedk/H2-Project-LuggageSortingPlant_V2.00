@@ -78,15 +78,17 @@ namespace LuggageSortingPlant_V2._00
                         {
                             Open = true;
                         }
-                        else
+                        if ((CheckInForFlight[0].DepartureTime - DateTime.Now).TotalSeconds < MainServer.checkInCloseBeforeDeparture)
                         {
                             Open = false;
-                        };
+                            CheckInForFlight[0] = null;
+                        }
                     }
                     else
                     {
                         Open = false;
                     }
+
                     if (Open && MainServer.checkInBuffers[CheckInNumber].Buffer[0] != null)
                     {
                         //removing luggage from the checkIn buffer
@@ -99,6 +101,8 @@ namespace LuggageSortingPlant_V2._00
                 finally
                 {
                     Monitor.PulseAll(MainServer.checkInBuffers[CheckInNumber]);//Sending signal to other thread
+                    Monitor.Exit(MainServer.checkInBuffers[CheckInNumber]);//Release the lock
+                    Monitor.PulseAll(MainServer.checkIns[CheckInNumber]);//Sending signal to other thread
                     Monitor.Exit(MainServer.checkIns[CheckInNumber]);//Release the lock
                 };
 
@@ -106,7 +110,7 @@ namespace LuggageSortingPlant_V2._00
 
 
 
-                //Adding luggage to SortingBuffer
+                // Adding luggage to SortingBuffer
                 Monitor.Enter(MainServer.sortingUnitBuffer);//Locking the thread
                 try
                 {
@@ -560,7 +564,8 @@ namespace LuggageSortingPlant_V2._00
 
 
 
-                Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
+                //Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
+                Thread.Sleep(MainServer.basicSleep);
             };
         }
         #endregion

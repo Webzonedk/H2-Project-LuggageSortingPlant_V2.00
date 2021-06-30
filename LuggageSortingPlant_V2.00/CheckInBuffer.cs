@@ -39,7 +39,7 @@ namespace LuggageSortingPlant_V2._00
         //initializing
         public CheckInBuffer(int checkInNumber)
         {
-            this.checkInNumber = checkInNumber;
+            this.CheckInNumber = checkInNumber;
         }
         #endregion
 
@@ -53,12 +53,12 @@ namespace LuggageSortingPlant_V2._00
                 Monitor.Enter(MainServer.checkInBuffers[CheckInNumber]);//Locking the thread
                 try
                 {
-                    for (int i = 0; i < MainServer.checkInBuffers[CheckInNumber].Buffer.Length - 1; i++)
+                    for (int i = 0; i < Buffer.Length - 1; i++)
                     {
-                        if (MainServer.checkInBuffers[CheckInNumber].Buffer[i] == null)
+                        if (Buffer[i] == null)
                         {
-                            MainServer.checkInBuffers[CheckInNumber].Buffer[i] = MainServer.checkInBuffers[CheckInNumber].Buffer[i + 1];
-                            MainServer.checkInBuffers[CheckInNumber].Buffer[i + 1] = null;
+                            Buffer[i] = Buffer[i + 1];
+                            Buffer[i + 1] = null;
                         }
                     }
                 }

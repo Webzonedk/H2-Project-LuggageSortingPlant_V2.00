@@ -50,7 +50,7 @@ namespace LuggageSortingPlant_V2._00
 
                 }
                 //}
-                Thread.Sleep(1);
+                Thread.Sleep(MainServer.basicSleep);
             }
         }
         #endregion

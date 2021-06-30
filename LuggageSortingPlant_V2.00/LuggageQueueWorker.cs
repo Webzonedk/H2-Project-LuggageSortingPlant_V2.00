@@ -36,24 +36,24 @@ namespace LuggageSortingPlant_V2._00
 
                 //if (MainServer.luggageBuffer[MainServer.luggageBuffer.Length - 1] != null)
                 //{
-                    Monitor.Enter(MainServer.luggageBuffer);//Locking the thread
-                    try
+                Monitor.Enter(MainServer.luggageBuffer);//Locking the thread
+                try
+                {
+                    for (int i = 0; i < MainServer.luggageBuffer.Length - 1; i++)
                     {
-                        for (int i = 0; i < MainServer.luggageBuffer.Length - 1; i++)
+                        if (MainServer.luggageBuffer[i] == null)
                         {
-                            if (MainServer.luggageBuffer[i] == null)
-                            {
-                                MainServer.luggageBuffer[i] = MainServer.luggageBuffer[i + 1];
-                                MainServer.luggageBuffer[i + 1] = null;
-                            }
+                            MainServer.luggageBuffer[i] = MainServer.luggageBuffer[i + 1];
+                            MainServer.luggageBuffer[i + 1] = null;
                         }
                     }
-                    finally
-                    {
-                        Monitor.PulseAll(MainServer.luggageBuffer);//Sending signal to other thread
-                        Monitor.Exit(MainServer.luggageBuffer);//Release the lock
+                }
+                finally
+                {
+                    Monitor.PulseAll(MainServer.luggageBuffer);//Sending signal to other thread
+                    Monitor.Exit(MainServer.luggageBuffer);//Release the lock
 
-                    }
+                }
                 //}
                 Thread.Sleep(1);
             }

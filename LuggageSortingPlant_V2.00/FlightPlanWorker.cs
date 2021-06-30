@@ -61,6 +61,7 @@ namespace LuggageSortingPlant_V2._00
                         tempFlightObject.Destination = MainServer.destinations[destinationIndex];
                         tempFlightObject.Seats = MainServer.numberOfSeats[seats];
                         tempFlightObject.GateNumber = MainServer.random.Next(0, MainServer.amountOfGates);
+
                         //Checking if there is already a flight in the flightPlan, and if so, using it to set the last departure time
                         for (int i = 0; i < MainServer.flightPlans.Length - 2; i++)
                         {
@@ -68,6 +69,7 @@ namespace LuggageSortingPlant_V2._00
                             {
                                 tempFlightObject.DepartureTime = MainServer.flightPlans[i].DepartureTime.AddSeconds(MainServer.random.Next(MainServer.flightPlanMinInterval, MainServer.flightPlanMaxInterval));
                                 flightsInFlightPlan = true;
+
                             }
                         }
                         if (flightsInFlightPlan == false)
@@ -76,7 +78,7 @@ namespace LuggageSortingPlant_V2._00
                         }
 
                         tempFlightPlan[0] = tempFlightObject;
-
+                        tempFlightObject = null;
                         Array.Copy(tempFlightPlan, 0, MainServer.flightPlans, MainServer.maxPendingFlights - 1, 1);//Copy first index from tempLuggage to the last index in the luggage buffer array
 
                         //  MainServer.outPut.PrintFlightPlan(MainServer.maxPendingFlights - 1);//Send parameter with the method
@@ -85,28 +87,39 @@ namespace LuggageSortingPlant_V2._00
 
 
 
-                    for (int j = 0; j < MainServer.checkIns.Length; j++)
+                    Monitor.Enter(MainServer.checkIns);//Locking the thread
+                    try
                     {
-                        if (tempFlightPlan[0] != null && ((tempFlightPlan[0].DepartureTime - DateTime.Now).TotalSeconds >= MainServer.checkInCloseBeforeDeparture + 5))
+                        for (int j = 0; j < MainServer.checkIns.Length; j++)
                         {
 
-                            if (MainServer.checkIns[j].CheckInForFlight[0] == null)
+                            if (tempFlightPlan[0] != null && ((tempFlightPlan[0].DepartureTime - DateTime.Now).TotalSeconds >= MainServer.checkInCloseBeforeDeparture + 5))
                             {
-                                Array.Copy(tempFlightPlan, 0, MainServer.checkIns[j].CheckInForFlight, 0, 1);//Copy the flightplan to the checkin
-                                j = MainServer.checkIns.Length - 1;
+
+                                if (MainServer.checkIns[j].CheckInForFlight[0] == null)
+                                {
+                                    Array.Copy(tempFlightPlan, 0, MainServer.checkIns[j].CheckInForFlight, 0, 1);//Copy the flightplan to the checkin
+                                    j = MainServer.checkIns.Length;
+                                    tempFlightPlan[0] = null;
+                                }
                             }
                         }
+                    }
+                    finally
+                    {
+                        Monitor.PulseAll(MainServer.checkIns);//Sending signal to other thread
+                        Monitor.Exit(MainServer.checkIns);//Release the lock
                     }
 
                 }
                 finally
                 {
-                    tempFlightPlan[0] = null;
+                    //tempFlightPlan[0] = null;
                     Monitor.PulseAll(MainServer.flightPlans);//Sending signal to other thread
                     Monitor.Exit(MainServer.flightPlans);//Release the lock
                 }
-                // Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
-                Thread.Sleep(MainServer.basicSleep);
+                //Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
+                Thread.Sleep(50);
             }
         }
     }

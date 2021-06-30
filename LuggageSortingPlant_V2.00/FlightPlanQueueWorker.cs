@@ -34,6 +34,7 @@ namespace LuggageSortingPlant_V2._00
                 {
                     for (int i = 0; i < MainServer.flightPlans.Length - 1; i++)
                     {
+                        // if the departure time has been passed, then move the flightplan to the flightplanlog
                         if (MainServer.flightPlans[i] != null && (MainServer.flightPlans[i].DepartureTime - DateTime.Now).TotalSeconds <= 0)
                         {
                             Monitor.Enter(MainServer.flightPlanLog);//Locking the thread

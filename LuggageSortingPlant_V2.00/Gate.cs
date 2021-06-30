@@ -165,8 +165,9 @@ namespace LuggageSortingPlant_V2._00
                     };
                 };
 
-               
-                Thread.Sleep(1);
+                //Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
+
+                Thread.Sleep(MainServer.basicSleep);
             };
         }
         #endregion

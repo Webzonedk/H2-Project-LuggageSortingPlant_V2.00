@@ -43,7 +43,7 @@ namespace LuggageSortingPlant_V2._00
         //Initializing
         public GateBuffer(int gateNumber)
         {
-            this.gateNumber = gateNumber;
+            this.GateNumber = gateNumber;
         }
         #endregion
 
@@ -52,24 +52,24 @@ namespace LuggageSortingPlant_V2._00
         {
             while (true)
             {
-                Monitor.Enter(MainServer.gateBuffers[gateNumber]);//Locking the thread
+                Monitor.Enter(MainServer.gateBuffers[GateNumber]);//Locking the thread
                 try
                 {
-                    for (int i = 0; i < MainServer.gateBuffers[gateNumber].Buffer.Length - 1; i++)
+                    for (int i = 0; i < MainServer.gateBuffers[GateNumber].Buffer.Length - 1; i++)
                     {
-                        if (MainServer.gateBuffers[gateNumber].Buffer[i] == null)
+                        if (MainServer.gateBuffers[GateNumber].Buffer[i] == null)
                         {
-                            MainServer.gateBuffers[gateNumber].Buffer[i] = MainServer.gateBuffers[gateNumber].Buffer[i + 1];
-                            MainServer.gateBuffers[gateNumber].Buffer[i + 1] = null;
+                            MainServer.gateBuffers[GateNumber].Buffer[i] = MainServer.gateBuffers[GateNumber].Buffer[i + 1];
+                            MainServer.gateBuffers[GateNumber].Buffer[i + 1] = null;
                         }
                     }
                 }
                 finally
                 {
-                    Monitor.PulseAll(MainServer.gateBuffers[gateNumber]);//Sending signal to other thread
-                    Monitor.Exit(MainServer.gateBuffers[gateNumber]);//Release the lock
+                    Monitor.PulseAll(MainServer.gateBuffers[GateNumber]);//Sending signal to other thread
+                    Monitor.Exit(MainServer.gateBuffers[GateNumber]);//Release the lock
                 }
-                Thread.Sleep(1);
+                Thread.Sleep(MainServer.basicSleep);
             }
         }
         #endregion

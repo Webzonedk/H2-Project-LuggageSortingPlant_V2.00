@@ -85,7 +85,7 @@ namespace LuggageSortingPlant_V2._00
                             pasengerNumber++;
                             Faker passengerName = new Faker();
                             luggage.PassengerName = passengerName.Name.FullName();
-                            luggage.FlightNumber = randomFlightNumber;
+                            luggage.FlightNumber = MainServer.flightPlans[randomFlightNumber].FlightNumber;
 
 
                             MainServer.luggageBuffer[MainServer.maxLuggageBuffer - 1] = luggage;
