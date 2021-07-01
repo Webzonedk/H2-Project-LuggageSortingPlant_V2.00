@@ -28,9 +28,6 @@ namespace LuggageSortingPlant_V2._00
         {
             while (true)
             {
-                //if (MainServer.sortingUnitBuffer[MainServer.sortingUnitBuffer.Length - 1] !=null)
-                //{
-
                     Monitor.Enter(MainServer.sortingUnitBuffer);//Locking the thread
                 try
                 {
@@ -40,18 +37,16 @@ namespace LuggageSortingPlant_V2._00
                         {
                             MainServer.sortingUnitBuffer[i] = MainServer.sortingUnitBuffer[i + 1];
                             MainServer.sortingUnitBuffer[i + 1] = null;
-                        }
-                    }
+                        };
+                    };
                 }
                 finally
                 {
                     Monitor.PulseAll(MainServer.sortingUnitBuffer);//Sending signal to other thread
                     Monitor.Exit(MainServer.sortingUnitBuffer);//Release the lock
-
-                }
-                //}
+                };
                 Thread.Sleep(MainServer.basicSleep);
-            }
+            };
         }
         #endregion
     }

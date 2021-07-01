@@ -59,17 +59,17 @@ namespace LuggageSortingPlant_V2._00
                         {
                             Buffer[i] = Buffer[i + 1];
                             Buffer[i + 1] = null;
-                        }
-                    }
+                        };
+                    };
                 }
                 finally
                 {
                     Monitor.PulseAll(MainServer.checkInBuffers[CheckInNumber]);//Sending signal to other thread
                     Monitor.Exit(MainServer.checkInBuffers[CheckInNumber]);//Release the lock
-                }
+                };
                // Thread.Sleep(MainServer.random.Next(MainServer.randomSleepMin, MainServer.randomSleepMax));
                 Thread.Sleep(MainServer.basicSleep);
-            }
+            };
         }
         #endregion
     }

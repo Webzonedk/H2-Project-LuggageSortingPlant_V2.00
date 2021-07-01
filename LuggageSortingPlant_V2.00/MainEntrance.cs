@@ -49,12 +49,8 @@ namespace LuggageSortingPlant_V2._00
                         {
                             Array.Copy(MainServer.luggageBuffer, 0, tempLuggage, 0, 1);//Copy first index from luggagebuffer to the temp array
                             MainServer.luggageBuffer[0] = null;
-                        }
-                    }
-                    //else
-                    //{
-                    //    Monitor.Wait(MainServer.luggageBuffer);//Sending signal to LuggageWorker
-                    //}
+                        };
+                    };
                 }
                 finally
                 {
@@ -90,15 +86,8 @@ namespace LuggageSortingPlant_V2._00
                                         Debug.WriteLine(MainServer.checkInBuffers[i].Buffer[MainServer.checkInBufferSize - 1].FlightNumber);
                                         tempLuggage[0] = null;
                                     };
-                                }
-
-
-                                //else
-                                //{
-                                //    Monitor.Wait(MainServer.checkInBuffers[i].Buffer);
-                                //};
+                                };
                             };
-
                         }
                         finally
                         {

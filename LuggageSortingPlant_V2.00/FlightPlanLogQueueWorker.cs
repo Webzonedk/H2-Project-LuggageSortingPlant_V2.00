@@ -53,7 +53,7 @@ namespace LuggageSortingPlant_V2._00
                             counter++;
                         }
                     }
-                    if (counter >= MainServer.logSize - 50)// If there is more than 90 logs, then delete the 20 oldest logs
+                    if (counter >= MainServer.logSize - 50)// If there is more than max logs - 50, then delete the 20 oldest logs
                     {
                         for (int i = 0; i < 20; i++)
                         {

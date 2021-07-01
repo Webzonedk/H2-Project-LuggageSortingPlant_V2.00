@@ -75,7 +75,7 @@ namespace LuggageSortingPlant_V2._00
                     try
                     {
                         int randomFlightNumber = MainServer.random.Next(0, randomMax);
-
+                        // Filling the flightplan object with content
                         if ((MainServer.flightPlans[randomFlightNumber] != null) && (MainServer.flightPlans[randomFlightNumber].TicketsSold < MainServer.flightPlans[randomFlightNumber].Seats))
                         {
                             Luggage luggage = new Luggage();
@@ -87,7 +87,7 @@ namespace LuggageSortingPlant_V2._00
                             luggage.PassengerName = passengerName.Name.FullName();
                             luggage.FlightNumber = MainServer.flightPlans[randomFlightNumber].FlightNumber;
 
-
+                            // Adding the object to the luggage buffer
                             MainServer.luggageBuffer[MainServer.maxLuggageBuffer - 1] = luggage;
                             MainServer.flightPlans[randomFlightNumber].TicketsSold++;
 

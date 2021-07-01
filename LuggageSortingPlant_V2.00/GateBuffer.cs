@@ -18,7 +18,6 @@ namespace LuggageSortingPlant_V2._00
         #endregion
 
 
-
         #region Properties
         public int GateNumber
         {
@@ -61,16 +60,16 @@ namespace LuggageSortingPlant_V2._00
                         {
                             MainServer.gateBuffers[GateNumber].Buffer[i] = MainServer.gateBuffers[GateNumber].Buffer[i + 1];
                             MainServer.gateBuffers[GateNumber].Buffer[i + 1] = null;
-                        }
-                    }
+                        };
+                    };
                 }
                 finally
                 {
                     Monitor.PulseAll(MainServer.gateBuffers[GateNumber]);//Sending signal to other thread
                     Monitor.Exit(MainServer.gateBuffers[GateNumber]);//Release the lock
-                }
+                };
                 Thread.Sleep(MainServer.basicSleep);
-            }
+            };
         }
         #endregion
     }

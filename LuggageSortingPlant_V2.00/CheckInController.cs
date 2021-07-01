@@ -14,7 +14,6 @@ namespace LuggageSortingPlant_V2._00
     {
 
         public EventHandler openCloseCheckIns;
-      //  private Thread checkInOpenCloseThread;
         private int checkInNumber;
 
         public int CheckInNumber
@@ -22,15 +21,6 @@ namespace LuggageSortingPlant_V2._00
             get { return checkInNumber; }
             set { checkInNumber = value; }
         }
-
-
-        //public Thread CheckInOpenCloseThread
-        //{
-        //    get { return checkInOpenCloseThread; }
-        //    set { checkInOpenCloseThread = value; }
-        //}
-
-
 
         public CheckInController(int checkInNumber)
         {

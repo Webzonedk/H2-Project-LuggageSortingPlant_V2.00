@@ -52,7 +52,6 @@ namespace LuggageSortingPlant_V2._00
                 {
                     Monitor.PulseAll(MainServer.luggageBuffer);//Sending signal to other thread
                     Monitor.Exit(MainServer.luggageBuffer);//Release the lock
-
                 }
                 //}
                 Thread.Sleep(1);

@@ -10,7 +10,7 @@ namespace LuggageSortingPlant_V2._00
 {
     //--------------------------------------------------------------
     //This is a controller class to get the count of Luggage running around in the hall,
-    //looking for a checkIn counter.
+    //looking for a checkIn counter. and sending it to the event listener
     //--------------------------------------------------------------
     class LuggageController
 
